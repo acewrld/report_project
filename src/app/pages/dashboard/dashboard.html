@@ -1,0 +1,55 @@
+<mat-sidenav-container class="h-screen bg-gray-100">
+  <mat-sidenav #sidenav mode="side" [(opened)]="opened">
+    <app-side-bar></app-side-bar>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <button matButton (click)="sidenav.toggle()">
+      <fa-icon [icon]="faBars"></fa-icon>
+    </button>
+    <div class="h-screen pr-3">
+      <header>
+        <h1 class="text-2xl font-bold mb-2">All Report</h1>
+        <p class="text-gray-600 mb-4">Browse and Run all Reports</p>
+      </header>
+      <span class="flex gap-1.5 relative">
+        <input type="text" placeholder="Search reports..." class="border p-2 rounded w-full h-8 mb-4" />
+        <button [matMenuTriggerFor]="menu" class="w-full h-8 border text-left rounded bg-white flex items-center justify-between px-3">
+          All categories <fa-icon [icon]="faAngleDown"></fa-icon>
+        </button>
+
+        <mat-menu #menu="matMenu" class="grid gap-2 w-fit h-fit absolute left-40 text-xl font-semibold bg-white shadow-lg rounded">
+          <a routerLink="/dashboard" class="block p-3 hover:bg-gray-200 ">Dashboard</a>
+          <a routerLink="/report" class="block p-3 hover:bg-gray-200">Run Report</a>
+        </mat-menu>
+        <button [matMenuTriggerFor]="menu" class="w-full h-8 border text-left rounded bg-white flex items-center justify-between px-3">
+          Sort by: Name:(A - Z) <fa-icon [icon]="faAngleDown"></fa-icon>
+        </button>
+
+        <mat-menu #menu="matMenu" class="grid gap-2 w-fit h-fit absolute left-40 text-xl font-semibold bg-white shadow-lg rounded">
+          <a routerLink="/dashboard" class="block p-3 hover:bg-gray-200 ">Dashboard</a>
+          <a routerLink="/report" class="block p-3 hover:bg-gray-200">Run Report</a>
+        </mat-menu>
+      </span>
+       <table class="mat-elevation-z8 w-full border-collapse">
+          <thead>
+            <tr class="border-b">
+              <th class="text-left p-2">Name</th>
+              <th class="text-left p-2">Category</th>
+              <th class="text-left p-2">Last Run</th>
+              <th class="text-left p-2">Date</th>
+              <th class="text-left p-2">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let element of datasource" class="hover:bg-gray-100 p-2">
+              <td class="p-2"><p>{{ element.name }}</p></td>
+              <td class="p-2"><p class="border w-20 font-semibold text-center p-1 rounded-md bg-green-200">{{ element.category }}</p></td>
+              <td class="p-2"><p>{{ element.lastRun }}</p></td>
+              <td class="p-2"><p>{{ element.date }}</p></td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

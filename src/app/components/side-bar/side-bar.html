@@ -1,0 +1,36 @@
+<aside class="m-0 p-5 w-64 h-screen bg-gray-800 text-white flex flex-col items-center justify-between">
+  <div class="flex flex-row items-center gap-3 p-4">
+    <img
+      src="assets/signal.png" alt="logo"
+      class="w-10 h-10 rounded-sm"
+    />
+    <h2 class="font-semibold text-xl">Report Portal</h2>
+  </div>
+
+    <ul class="flex flex-col gap-4 p-8 text-lg">
+        <li>
+             <a routerLink="/dashboard" routerLinkActive="active" class="flex">
+                <img src="assets/home.png" alt="Dashboard" class="w-6 h-6 pr-1"> Dashboard
+            </a>
+        </li>
+        <li>
+            <a routerLink="/report" routerLinkActive="active" class="flex">
+                <img src="assets/report.png" alt="Run Report" class="w-6 h-6 pr-1">      Run Report
+            </a>
+        </li>
+        <li>
+            <a routerLink="/audit-log" routerLinkActive="active" class="flex">
+                <img src="assets/logistics-management.png" alt="Audit Log" class="w-6 h-6 pr-1"> Audit Log
+            </a>
+        </li>
+    </ul>
+
+  <div class="footer-links">
+  <div class="footer-links">
+    <a routerLink="/settings" class="flex">
+      <img src="assets/settings-icon.png" alt="Settings" class="w-5 h-5"> Settings
+    </a>
+    <a routerLink="/logout" class="flex">
+      <img src="assets/logout-icon.png" alt="Logout" class="w-5 h-5"> Logout
+    </a>
+  </div>
