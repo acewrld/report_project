@@ -8,4 +8,6 @@ import { HeroSection } from '../../components/hero-section/hero-section';
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
-export class Home {}
+export class Home {
+  
+}

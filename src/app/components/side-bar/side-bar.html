@@ -1,4 +1,4 @@
-<aside class="m-0 p-5 w-64 h-screen bg-gray-800 text-white flex flex-col items-center justify-between">
+<aside class="m-0 p-5 w-64 h-screen bg-gray-800 text-white flex flex-col items-center relative">
   <div class="flex flex-row items-center gap-3 p-4">
     <img
       src="assets/signal.png" alt="logo"
@@ -7,9 +7,9 @@
     <h2 class="font-semibold text-xl">Report Portal</h2>
   </div>
 
-    <ul class="flex flex-col gap-4 p-8 text-lg">
+    <ul class="flex flex-col gap-4 p-8 text-lg my-5 w-full">
         <li>
-             <a routerLink="/dashboard" routerLinkActive="active" class="flex">
+             <a routerLink="/dashboard" routerLinkActive="active" active class="flex">
                 <img src="assets/home.png" alt="Dashboard" class="w-6 h-6 pr-1"> Dashboard
             </a>
         </li>
@@ -19,18 +19,17 @@
             </a>
         </li>
         <li>
-            <a routerLink="/audit-log" routerLinkActive="active" class="flex">
+            <a routerLink="/audit" routerLinkActive="active" class="flex">
                 <img src="assets/logistics-management.png" alt="Audit Log" class="w-6 h-6 pr-1"> Audit Log
             </a>
         </li>
     </ul>
 
-  <div class="footer-links">
-  <div class="footer-links">
-    <a routerLink="/settings" class="flex">
-      <img src="assets/settings-icon.png" alt="Settings" class="w-5 h-5"> Settings
+  <div class="footer-links p-3 text-sm opacity-80 absolute bottom-0">
+    <a routerLink="/settings" class="flex p-3">
+      <img src="assets/settings.png" alt="Settings" class="w-4 h-4 pr-1"> Settings
     </a>
-    <a routerLink="/logout" class="flex">
-      <img src="assets/logout-icon.png" alt="Logout" class="w-5 h-5"> Logout
+    <a routerLink="/logout" class="flex p-3">
+      <img src="assets/logout.png" alt="Logout" class="w-4 h-4 pr-1"> Logout
     </a>
   </div>
