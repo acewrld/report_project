@@ -1,10 +1,9 @@
 <div
-  class="hidden lg:grid lg:w-xl h-screen rounded-2xl bg-linear-to-br from-blue-900 to-blue-600 p-10 text-white flex-col justify-between"
->
+  class="hidden lg:grid lg:w-xl rounded-2xl bg-linear-to-br from-blue-900 to-blue-600 p-10 text-white flex-col justify-between">
   <!-- Logo -->
-  <div class="flex items-center gap-3 justify-center">
+  <div routerLink="/home" class="flex items-center gap-3 justify-center cursor-pointer">
     <div class="flex gap-1">
-      <img src="assets/signal.png" alt="logo" class="w-10 h-10 rounded-sm" />
+      <img src="assets/signal.png" alt="logo" class="w-10 h-10 rounded-sm cursor-pointer" />
     </div>
     <h1 class="font-bold text-4xl">REPORT PORTAL</h1>
   </div>
@@ -18,17 +17,17 @@
   </div>
 
   <!-- Features -->
-  <div class="flex justify-between text-sm opacity-90">
+  <div class="flex justify-between text-sm opacity-90 pt-4">
     <div class="flex flex-col text-center">
-      <span><fa-icon [icon]="faLock"></fa-icon></span>
+      <span><mat-icon>lock</mat-icon></span>
       <span>Secure</span>
     </div>
     <div class="flex flex-col text-center">
-      <span><fa-icon [icon]="faBolt"></fa-icon></span>
+      <span><mat-icon>speed</mat-icon></span>
       <span>Fast Access</span>
     </div>
     <div class="flex flex-col text-center">
-      <span><fa-icon [icon]="faChartBar"></fa-icon></span>
+      <span><mat-icon>bar_chart</mat-icon></span>
       <span>Smart Insights</span>
     </div>
   </div>

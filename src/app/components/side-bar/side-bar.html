@@ -9,27 +9,27 @@
 
     <ul class="flex flex-col gap-4 p-8 text-lg my-5 w-full">
         <li>
-             <a routerLink="/dashboard" routerLinkActive="active" active class="flex">
+             <a routerLink="/dashboard" routerLinkActive="border-l-4 border-blue-500 bg-blue-50 text-blue-600" [routerLinkActiveOptions]="{ exact: true }" class="flex p-2" [attr.aria-current]="true">
                 <img src="assets/home.png" alt="Dashboard" class="w-6 h-6 pr-1"> Dashboard
             </a>
         </li>
         <li>
-            <a routerLink="/report" routerLinkActive="active" class="flex">
+            <a routerLink="/report" routerLinkActive="border-l-4 border-blue-500 bg-blue-50 text-blue-600" class="flex p-2">
                 <img src="assets/report.png" alt="Run Report" class="w-6 h-6 pr-1">      Run Report
             </a>
         </li>
         <li>
-            <a routerLink="/audit" routerLinkActive="active" class="flex">
+            <a routerLink="/audit" routerLinkActive="border-l-4 border-blue-500 bg-blue-50 text-blue-600" class="flex p-2">
                 <img src="assets/logistics-management.png" alt="Audit Log" class="w-6 h-6 pr-1"> Audit Log
             </a>
         </li>
     </ul>
 
   <div class="footer-links p-3 text-sm opacity-80 absolute bottom-0">
-    <a routerLink="/settings" class="flex p-3">
+    <a routerLink="/" class="flex p-3">
       <img src="assets/settings.png" alt="Settings" class="w-4 h-4 pr-1"> Settings
     </a>
-    <a routerLink="/logout" class="flex p-3">
+    <a routerLink="/" class="flex p-3">
       <img src="assets/logout.png" alt="Logout" class="w-4 h-4 pr-1"> Logout
     </a>
   </div>

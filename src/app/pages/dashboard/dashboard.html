@@ -4,22 +4,30 @@
           <h1 class="text-2xl font-bold mb-2">All Report</h1>
           <p class="text-gray-600 mb-4">Browse and Run all Reports</p>
         </div>
-        <div>
+        <button [matMenuTriggerFor]="user" class="flex items-center gap-0.5 px-3 py-1 cursor-pointer">
           <fa-icon [icon]="faUser" class="text-gray-600 text-xl"></fa-icon>
           <span class="ml-2 text-gray-600">John Doe</span>
           <fa-icon [icon]="faAngleDown" class="text-gray-600 ml-1"></fa-icon>
-        </div>
+        </button>
+        <mat-menu #user="matMenu" class="w-48">
+          <a class="block px-4 py-2 hover:bg-gray-100" routerLink="/profile">Profile</a>
+          <a class="block px-4 py-2 hover:bg-gray-100" routerLink="/settings">Settings</a>
+          <a class="block px-4 py-2 hover:bg-gray-100" routerLink="/logout">Logout</a>
+        </mat-menu>
       </header>
       <span class="gap-1.5 relative lg:flex mb-4">
-        <input
-          type="text"
-          placeholder="Search reports..."
-          class="border p-2 rounded w-full h-8 mb-4"
-        />
+        <div class="relative w-full mb-4">
+          <input
+            type="text"
+            placeholder="Search reports..."
+            class="border p-2 rounded w-full h-8 pr-10"
+          />
+          <mat-icon class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">search</mat-icon>
+        </div>
 
         <button
           [matMenuTriggerFor]="menu"
-          class="w-full h-8 mb-4 border text-left rounded bg-white flex items-center justify-between px-3"
+          class="w-full h-8 mb-4 border text-left rounded bg-white flex items-center justify-between px-3 cursor-pointer"
         >
           {{ selectedCategory || 'All Categories' }} <fa-icon [icon]="faAngleDown"></fa-icon>
         </button>
@@ -45,7 +53,7 @@
 
         <button
           [matMenuTriggerFor]="menuu"
-          class="w-full h-8 mb-4 border text-left rounded bg-white flex items-center justify-between px-3"
+          class="w-full h-8 mb-4 border text-left rounded bg-white flex items-center justify-between px-3 cursor-pointer"
         >
           {{ selectedSort || 'Sort by: Name:(A - Z)' }} <fa-icon [icon]="faAngleDown"></fa-icon>
         </button>
@@ -95,7 +103,7 @@
             <td class="p-2">
               <p>{{ element.date }}</p>
             </td>
-            <td :class="statusClass(element.status)">
+            <td [ngClass]="statusClass(element.status)">
               <p>{{ element.status }}</p>
             </td>
           </tr>

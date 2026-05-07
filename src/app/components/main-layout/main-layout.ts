@@ -1,22 +1,22 @@
 import { Component, signal } from '@angular/core';
-import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
+import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { SideBar } from '../side-bar/side-bar';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-main-layout',
   standalone: true,
   imports: [
     RouterOutlet,
     MatSidenavModule,
-    FontAwesomeModule,
+    MatIconModule,
+    SideBar,
   ],
-  templateUrl: './app.html',
+  templateUrl: './main-layout.html',
 })
-export class App {
-  protected readonly title = signal('report_project');
-
+export class MainLayout {
   opened = signal(true);
 
   constructor(private router: Router) {

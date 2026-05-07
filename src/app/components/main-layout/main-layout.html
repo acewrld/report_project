@@ -1,0 +1,13 @@
+<mat-sidenav-container class="h-screen">
+  <mat-sidenav mode="side" [opened]="opened()">
+    <app-side-bar></app-side-bar>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="bg-white">
+    <button matButton (click)="toggleSidenav()">
+      <mat-icon class="cursor-pointer">menu</mat-icon>
+    </button>
+
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

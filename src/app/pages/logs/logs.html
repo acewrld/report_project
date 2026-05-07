@@ -1,1 +1,110 @@
-<p>Audit Log</p>
+<div class="p-5 bg-white">
+    <header class="flex justify-between">
+        <div>
+            <h1 class="text-2xl font-bold mb-2">Audit Log</h1>
+            <p class="text-gray-600 mb-4">Track all user activities and system events</p>
+        </div>
+        <button [matMenuTriggerFor]="user" class="flex items-center gap-0.5 px-3 py-1 cursor-pointer">
+            <mat-icon class="text-gray-600 text-xl">account_circle</mat-icon>
+            <span class="ml-2 text-gray-600">John Doe</span>
+            <mat-icon class="text-gray-600 ml-1">expand_more</mat-icon>
+        </button>
+        <mat-menu #user="matMenu" class="w-48">
+            <a class="block px-4 py-2 hover:bg-gray-100" routerLink="/profile">Profile</a>
+            <a class="block px-4 py-2 hover:bg-gray-100" routerLink="/settings">Settings</a>
+            <a class="block px-4 py-2 hover:bg-gray-100" routerLink="/logout">Logout</a>
+        </mat-menu>
+    </header>
+    <span class="gap-1.5 relative lg:flex mb-4">
+        <input
+            type="date"
+            placeholder="Search logs..."
+            class="border p-2 rounded w-full h-8 mb-4"
+        />
+
+
+        <button
+          [matMenuTriggerFor]="menu"
+          class="w-full h-8 mb-4 border text-left rounded bg-white flex items-center justify-between px-3 cursor-pointer"
+        >
+          {{ selectedAction || 'Actions' }} <mat-icon>expand_more</mat-icon>
+        </button>
+        <mat-menu
+          #menu="matMenu"
+          class="grid gap-2 w-fit h-fit absolute left-40 text-xl font-semibold bg-white shadow-lg rounded"
+        >
+          <a
+            class="block p-3 hover:bg-gray-200 {{
+              selectedAction === 'All action' ? 'bg-gray-300' : ''
+            }}"
+            (click)="selectAction('All action')"
+            >All action</a
+          >
+          <a
+            class="block p-3 hover:bg-gray-200 {{
+              selectedAction === 'All action' ? 'bg-gray-300' : ''
+            }}"
+            (click)="selectAction('All action')"
+            >All action</a
+          >
+        </mat-menu>
+
+        <button
+          [matMenuTriggerFor]="meenu"
+          class="w-full h-8 mb-4 border text-left rounded bg-white flex items-center justify-between px-3 cursor-pointer"
+        >
+          {{ selectedStatus || 'Status' }} <mat-icon>expand_more</mat-icon>
+        </button>
+        <mat-menu
+          #meenu="matMenu"
+          class="grid gap-2 w-fit h-fit absolute left-40 text-xl font-semibold bg-white shadow-lg rounded"
+        >
+          <a
+            class="block p-3 hover:bg-gray-200 {{
+              selectedStatus === 'All status' ? 'bg-gray-300' : ''
+            }}"
+            (click)="selectStatus('All status')"
+            >All status</a
+          >
+          <a
+            class="block p-3 hover:bg-gray-200 {{
+              selectedStatus === 'All status' ? 'bg-gray-300' : ''
+            }}"
+            (click)="selectStatus('All status')"
+            >All status</a
+          >
+        </mat-menu>
+
+        <div class="relative w-full mb-4">
+          <input
+            type="text"
+            placeholder="Search reports..."
+            class="border p-2 rounded w-full h-8 pr-10"
+          />
+          <mat-icon class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">search</mat-icon>
+        </div>
+        </span>
+        <table class="w-full bg-white shadow-2xl p-5">
+            <thead>
+                <tr class="border bg-gray-100">
+                    <th class="border-b py-4">Date & Time</th>
+                    <th class="border-b py-4">User</th>
+                    <th class=" border-b py-4">Action</th>
+                    <th class="border-b py-4">Details</th>
+                    <th class="border-b py-4">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let log of logs">
+                    <td class="py-4 px-4">{{ log.dateandtime }}</td>
+                    <td class="py-4 px-4">{{ log.user }}</td>
+                    <td class="py-4 px-4">{{ log.action }}</td>
+                    <td class="py-4 px-4">{{ log.details }}</td>
+                    <td class="py-4 px-4">
+                      <span [ngClass]="statusClass(log.status)" class="px-2 py-1 rounded text-sm">
+                        {{ log.status }}
+                      </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>    
