@@ -1,110 +1,250 @@
-<div class="p-5 bg-white">
-    <header class="flex justify-between">
-        <div>
-            <h1 class="text-2xl font-bold mb-2">Audit Log</h1>
-            <p class="text-gray-600 mb-4">Track all user activities and system events</p>
-        </div>
-        <button [matMenuTriggerFor]="user" class="flex items-center gap-0.5 px-3 py-1 cursor-pointer">
-            <mat-icon class="text-gray-600 text-xl">account_circle</mat-icon>
-            <span class="ml-2 text-gray-600">John Doe</span>
-            <mat-icon class="text-gray-600 ml-1">expand_more</mat-icon>
-        </button>
-        <mat-menu #user="matMenu" class="w-48">
-            <a class="block px-4 py-2 hover:bg-gray-100" routerLink="/profile">Profile</a>
-            <a class="block px-4 py-2 hover:bg-gray-100" routerLink="/settings">Settings</a>
-            <a class="block px-4 py-2 hover:bg-gray-100" routerLink="/logout">Logout</a>
-        </mat-menu>
-    </header>
-    <span class="gap-1.5 relative lg:flex mb-4">
-        <input
-            type="date"
-            placeholder="Search logs..."
-            class="border p-2 rounded w-full h-8 mb-4"
-        />
+<div class="p-6 bg-gray-50">
 
+  <!-- HEADER -->
+  <header class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+
+    <div>
+      <h1 class="text-3xl font-bold text-slate-800">Audit Log</h1>
+      <p class="text-gray-500 mt-1">
+        Track all user activities and system events
+      </p>
+    </div>
+
+    <!-- USER MENU -->
+    <button
+      [matMenuTriggerFor]="user"
+      class="flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300"
+    >
+
+      <div class="w-9 h-9 rounded-full bg-amber-100 flex items-center justify-center">
+        <mat-icon class="text-amber-500">account_circle</mat-icon>
+      </div>
+
+      <span class="font-medium text-gray-700">John Doe</span>
+
+      <mat-icon class="text-gray-500 text-sm">
+        expand_more
+      </mat-icon>
+
+    </button>
+
+    <mat-menu #user="matMenu" class="rounded-2xl overflow-hidden">
+      <div class="py-2 min-w-45">
+
+        <a
+          class="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 transition"
+          routerLink="/profile"
+        >
+          <mat-icon class="text-gray-500 text-base">person</mat-icon>
+          Profile
+        </a>
+
+        <a
+          class="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 transition"
+          routerLink="/"
+        >
+          <mat-icon class="text-gray-500 text-base">settings</mat-icon>
+          Settings
+        </a>
+
+        <a
+          class="flex items-center gap-3 px-4 py-3 text-red-500 hover:bg-red-50 transition"
+          routerLink="/logout"
+        >
+          <mat-icon class="text-base">logout</mat-icon>
+          Logout
+        </a>
+
+      </div>
+    </mat-menu>
+
+  </header>
+
+  <!-- FILTERS -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+
+    <!-- DATE -->
+    <div class="relative">
+      <input
+        type="date"
+        class="w-full h-11 rounded-xl border border-gray-200 bg-white px-4 shadow-sm focus:ring-2 focus:ring-amber-300 focus:outline-none"
+      />
+    </div>
+
+    <!-- ACTION FILTER -->
+    <button
+      [matMenuTriggerFor]="menu"
+      class="h-11 rounded-xl border border-gray-200 bg-white px-4 flex items-center justify-between shadow-sm hover:shadow-md transition"
+    >
+
+      <span class="text-gray-700">
+        {{ selectedAction || 'Actions' }}
+      </span>
+
+      <mat-icon class="text-gray-500">
+        expand_more
+      </mat-icon>
+
+    </button>
+
+    <mat-menu #menu="matMenu" class="rounded-2xl overflow-hidden">
+      <div class="py-2 min-w-55">
 
         <button
-          [matMenuTriggerFor]="menu"
-          class="w-full h-8 mb-4 border text-left rounded bg-white flex items-center justify-between px-3 cursor-pointer"
+          class="w-full text-left px-4 py-3 hover:bg-amber-50 hover:text-amber-600 transition"
+          (click)="selectAction('All Actions')"
         >
-          {{ selectedAction || 'Actions' }} <mat-icon>expand_more</mat-icon>
+          All Actions
         </button>
-        <mat-menu
-          #menu="matMenu"
-          class="grid gap-2 w-fit h-fit absolute left-40 text-xl font-semibold bg-white shadow-lg rounded"
-        >
-          <a
-            class="block p-3 hover:bg-gray-200 {{
-              selectedAction === 'All action' ? 'bg-gray-300' : ''
-            }}"
-            (click)="selectAction('All action')"
-            >All action</a
-          >
-          <a
-            class="block p-3 hover:bg-gray-200 {{
-              selectedAction === 'All action' ? 'bg-gray-300' : ''
-            }}"
-            (click)="selectAction('All action')"
-            >All action</a
-          >
-        </mat-menu>
 
         <button
-          [matMenuTriggerFor]="meenu"
-          class="w-full h-8 mb-4 border text-left rounded bg-white flex items-center justify-between px-3 cursor-pointer"
+          class="w-full text-left px-4 py-3 hover:bg-amber-50 hover:text-amber-600 transition"
+          (click)="selectAction('Login')"
         >
-          {{ selectedStatus || 'Status' }} <mat-icon>expand_more</mat-icon>
+          Login
         </button>
-        <mat-menu
-          #meenu="matMenu"
-          class="grid gap-2 w-fit h-fit absolute left-40 text-xl font-semibold bg-white shadow-lg rounded"
-        >
-          <a
-            class="block p-3 hover:bg-gray-200 {{
-              selectedStatus === 'All status' ? 'bg-gray-300' : ''
-            }}"
-            (click)="selectStatus('All status')"
-            >All status</a
-          >
-          <a
-            class="block p-3 hover:bg-gray-200 {{
-              selectedStatus === 'All status' ? 'bg-gray-300' : ''
-            }}"
-            (click)="selectStatus('All status')"
-            >All status</a
-          >
-        </mat-menu>
 
-        <div class="relative w-full mb-4">
-          <input
-            type="text"
-            placeholder="Search reports..."
-            class="border p-2 rounded w-full h-8 pr-10"
-          />
-          <mat-icon class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">search</mat-icon>
-        </div>
-        </span>
-        <table class="w-full bg-white shadow-2xl p-5">
-            <thead>
-                <tr class="border bg-gray-100">
-                    <th class="border-b py-4">Date & Time</th>
-                    <th class="border-b py-4">User</th>
-                    <th class=" border-b py-4">Action</th>
-                    <th class="border-b py-4">Details</th>
-                    <th class="border-b py-4">Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let log of logs">
-                    <td class="py-4 px-4">{{ log.dateandtime }}</td>
-                    <td class="py-4 px-4">{{ log.user }}</td>
-                    <td class="py-4 px-4">{{ log.action }}</td>
-                    <td class="py-4 px-4">{{ log.details }}</td>
-                    <td class="py-4 px-4">
-                      <span [ngClass]="statusClass(log.status)" class="px-2 py-1 rounded text-sm">
-                        {{ log.status }}
-                      </span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>    
+        <button
+          class="w-full text-left px-4 py-3 hover:bg-amber-50 hover:text-amber-600 transition"
+          (click)="selectAction('Update')"
+        >
+          Update
+        </button>
+
+      </div>
+    </mat-menu>
+
+    <!-- STATUS FILTER -->
+    <button
+      [matMenuTriggerFor]="meenu"
+      class="h-11 rounded-xl border border-gray-200 bg-white px-4 flex items-center justify-between shadow-sm hover:shadow-md transition"
+    >
+
+      <span class="text-gray-700">
+        {{ selectedStatus || 'Status' }}
+      </span>
+
+      <mat-icon class="text-gray-500">
+        expand_more
+      </mat-icon>
+
+    </button>
+
+    <mat-menu #meenu="matMenu" class="rounded-2xl overflow-hidden">
+      <div class="py-2 min-w-55">
+
+        <button
+          class="w-full text-left px-4 py-3 hover:bg-amber-50 hover:text-amber-600 transition"
+          (click)="selectStatus('All Status')"
+        >
+          All Status
+        </button>
+
+        <button
+          class="w-full text-left px-4 py-3 hover:bg-amber-50 hover:text-amber-600 transition"
+          (click)="selectStatus('Success')"
+        >
+          Success
+        </button>
+
+        <button
+          class="w-full text-left px-4 py-3 hover:bg-amber-50 hover:text-amber-600 transition"
+          (click)="selectStatus('Failed')"
+        >
+          Failed
+        </button>
+
+      </div>
+    </mat-menu>
+
+    <!-- SEARCH -->
+    <div class="relative">
+      <input
+        type="text"
+        placeholder="Search logs..."
+        class="w-full h-11 rounded-xl border border-gray-200 bg-white px-4 pr-11 shadow-sm focus:ring-2 focus:ring-amber-300 focus:outline-none"
+      />
+
+      <mat-icon
+        class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+      >
+        search
+      </mat-icon>
+    </div>
+
+  </div>
+
+  <!-- TABLE -->
+  <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+
+    <table class="w-full border-collapse">
+
+      <thead class="bg-gray-100">
+        <tr>
+
+          <th class="text-left px-6 py-4 text-sm font-semibold text-gray-600">
+            Date & Time
+          </th>
+
+          <th class="text-left px-6 py-4 text-sm font-semibold text-gray-600">
+            User
+          </th>
+
+          <th class="text-left px-6 py-4 text-sm font-semibold text-gray-600">
+            Action
+          </th>
+
+          <th class="text-left px-6 py-4 text-sm font-semibold text-gray-600">
+            Details
+          </th>
+
+          <th class="text-left px-6 py-4 text-sm font-semibold text-gray-600">
+            Status
+          </th>
+
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr
+          *ngFor="let log of logs"
+          class="border-t hover:bg-gray-50 transition duration-200"
+        >
+
+          <td class="px-6 py-4 text-gray-700">
+            {{ log.dateandtime }}
+          </td>
+
+          <td class="px-6 py-4 font-medium text-slate-700">
+            {{ log.user }}
+          </td>
+
+          <td class="px-6 py-4 text-gray-700">
+            {{ log.action }}
+          </td>
+
+          <td class="px-6 py-4 text-gray-600">
+            {{ log.details }}
+          </td>
+
+          <td class="px-3 py-4">
+
+            <span
+              [ngClass]="statusClass(log.status)"
+              class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium"
+            >
+              {{ log.status }}
+            </span>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

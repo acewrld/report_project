@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { NgClass } from '@angular/common';
+// import { NgClass } from '@angular/common';
 
 
 interface Report {
@@ -20,7 +20,6 @@ interface Report {
   date: string;
   status: 'success' | 'failed' | 'pending';
 }
-
 
 @Component({
   selector: 'app-dashboard',
@@ -35,10 +34,13 @@ interface Report {
     MatMenuTrigger,
     MatButtonModule,
     FontAwesomeModule,
-    NgClass
-  ],
+    RouterLink
+    // NgClass
+],
   templateUrl: './dashboard.html',
 })
+
+
 export class Dashboard {
   opened = false;
   faBars = faBars;
@@ -49,7 +51,7 @@ export class Dashboard {
     {
       name: 'Loan Report',
       category: 'Loan',
-      lastRun: 'User, Admin',
+      lastRun: 'John Doe',
       date: 'Sep 12, 2022',
       status: 'success',
     },
@@ -63,14 +65,14 @@ export class Dashboard {
     {
       name: 'Guarantor Summary Report',
       category: 'Loan',
-      lastRun: 'User, Admin',
+      lastRun: 'John Doe',
       date: 'Aug 12, 2022',
       status: 'failed',
     },
     {
       name: 'Loan Report',
       category: 'Loan',
-      lastRun: 'User, Admin',
+      lastRun: 'John Doe',
       date: 'Sep 12, 2022',
       status: 'success',
     },
@@ -84,7 +86,7 @@ export class Dashboard {
     {
       name: 'Guarantor Summary Report',
       category: 'Loan',
-      lastRun: 'User, Admin',
+      lastRun: 'John Doe',
       date: 'Aug 12, 2022',
       status: 'success',
     },

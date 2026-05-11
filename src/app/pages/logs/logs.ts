@@ -5,7 +5,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { timestamp } from 'rxjs';
+import { MatTableModule } from '@angular/material/table';
+import { RouterLink } from '@angular/router';
+
 
 
 @Component({
@@ -17,7 +19,8 @@ import { timestamp } from 'rxjs';
     CommonModule,
     MatButtonModule,
     MatMenuModule,
-    MatIconModule
+    MatTableModule,
+    RouterLink
   ],
   templateUrl: './logs.html',
 })
@@ -70,6 +73,7 @@ export class Logs {
   ];
 
   datasource = this.logs;
+
   statusClass(status: string): string {
     return (
       status === 'success'

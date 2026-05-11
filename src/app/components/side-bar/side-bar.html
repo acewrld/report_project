@@ -1,35 +1,148 @@
-<aside class="m-0 p-5 w-64 h-screen bg-gray-800 text-white flex flex-col items-center relative">
-  <div class="flex flex-row items-center gap-3 p-4">
-    <img
-      src="assets/signal.png" alt="logo"
-      class="w-10 h-10 rounded-sm"
-    />
-    <h2 class="font-semibold text-xl">Report Portal</h2>
-  </div>
+<aside class="w-72 h-screen bg-slate-900 text-white flex flex-col justify-between shadow-2xl border-r border-slate-800">
 
-    <ul class="flex flex-col gap-4 p-8 text-lg my-5 w-full">
-        <li>
-             <a routerLink="/dashboard" routerLinkActive="border-l-4 border-blue-500 bg-blue-50 text-blue-600" [routerLinkActiveOptions]="{ exact: true }" class="flex p-2" [attr.aria-current]="true">
-                <img src="assets/home.png" alt="Dashboard" class="w-6 h-6 pr-1"> Dashboard
+  <div>
+
+    <div class="flex items-center gap-3 px-6 py-6 border-b border-slate-800">
+
+      <div class="bg-amber-400 p-2 rounded-xl shadow-lg">
+        <img src="assets/signal.png" alt="logo" class="w-7 h-7 object-contain" />
+      </div>
+
+      <div>
+        <h2 class="font-bold text-xl tracking-wide">
+          Report Portal
+        </h2>
+
+        <p class="text-xs text-slate-400">
+          Analytics Dashboard
+        </p>
+      </div>
+
+    </div>
+
+    <!-- NAVIGATION -->
+    <ul class="flex flex-col gap-3 px-4 py-6 text-sm font-medium">
+
+
+      <li>
+        <a routerLink="/dashboard" routerLinkActive="bg-amber-400 text-slate-900 shadow-lg"
+          class="flex items-center gap-3 px-4 py-3 rounded-2xl text-slate-300 hover:bg-slate-800 hover:text-white transition-all duration-300">
+
+          <div class="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center">
+            <img src="assets/home.png" alt="Dashboard" class="w-5 h-5" />
+          </div>
+
+          <span>Dashboard</span>
+
+        </a>
+      </li>
+
+      <li>
+
+     <button [matMenuTriggerFor]="departmentmenu"
+          class="w-full flex items-center justify-between px-4 py-3 rounded-2xl text-slate-300 hover:bg-slate-800 hover:text-white transition-all duration-300">
+
+          <div class="flex items-center gap-3">
+
+            <div class="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center">
+              <mat-icon class="text-amber-400">
+                assignment
+              </mat-icon>
+            </div>
+
+            <span>Departments</span>
+
+          </div>
+
+          <mat-icon class="text-base opacity-70">
+            keyboard_arrow_down
+          </mat-icon>
+
+        </button>
+
+        <mat-menu #departmentmenu="matMenu" class="rounded-2xl overflow-hidden">
+
+          <div class="py-2 min-w-65 bg-white">
+
+            <a routerLink="/report"
+              class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-amber-50 hover:text-amber-600 transition duration-200">
+              <mat-icon class="text-amber-400 text-base">
+                payments
+              </mat-icon> Accounting & Finance
             </a>
-        </li>
-        <li>
-            <a routerLink="/report" routerLinkActive="border-l-4 border-blue-500 bg-blue-50 text-blue-600" class="flex p-2">
-                <img src="assets/report.png" alt="Run Report" class="w-6 h-6 pr-1">      Run Report
+
+            <a routerLink="/report"
+              class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-amber-50 hover:text-amber-600 transition duration-200">
+              <mat-icon class="text-amber-400 text-base">
+                account_balance
+              </mat-icon> BOSA (Credit / Loans)
             </a>
-        </li>
-        <li>
-            <a routerLink="/audit" routerLinkActive="border-l-4 border-blue-500 bg-blue-50 text-blue-600" class="flex p-2">
-                <img src="assets/logistics-management.png" alt="Audit Log" class="w-6 h-6 pr-1"> Audit Log
+
+            <a routerLink="/report"
+              class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-amber-50 hover:text-amber-600 transition duration-200">
+              <mat-icon class="text-amber-400 text-base">
+                support_agent
+              </mat-icon> Customer Service, Savings & FOSA
             </a>
-        </li>
+
+            <a routerLink="/report"
+              class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 hover:bg-amber-50 hover:text-amber-600 transition duration-200">
+              <mat-icon class="text-amber-400 text-base">
+                groups
+              </mat-icon> Cross-Departmental
+            </a>
+
+          </div>
+        </mat-menu>
+      </li>
+
+      <li>
+        <a routerLink="/audit" routerLinkActive="bg-amber-400 text-slate-900 shadow-lg"
+          class="flex items-center gap-3 px-4 py-3 rounded-2xl text-slate-300 hover:bg-slate-800 hover:text-white transition-all duration-300">
+
+          <div class="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center">
+            <img src="assets/logistics-management.png" alt="Audit Log" class="w-5 h-5" />
+          </div>
+          <span>Audit Log</span>
+        </a>
+      </li>
+
     </ul>
 
-  <div class="footer-links p-3 text-sm opacity-80 absolute bottom-0">
-    <a routerLink="/" class="flex p-3">
-      <img src="assets/settings.png" alt="Settings" class="w-4 h-4 pr-1"> Settings
-    </a>
-    <a routerLink="/" class="flex p-3">
-      <img src="assets/logout.png" alt="Logout" class="w-4 h-4 pr-1"> Logout
-    </a>
   </div>
+
+  <!-- FOOTER -->
+  <div class="px-4 py-5 border-t border-slate-800">
+
+    <div class="bg-slate-800 rounded-2xl p-3 flex flex-col gap-2">
+
+      <a routerLink="/settings" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-700 transition">
+
+        <div class="w-8 h-8 rounded-lg bg-slate-700 flex items-center justify-center">
+          <img src="assets/settings.png" alt="Settings" class="w-4 h-4" />
+        </div>
+
+        <span class="text-sm text-slate-300">
+          Settings
+        </span>
+
+      </a>
+
+
+      <a routerLink="/" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-red-500/10 transition">
+
+        <div class="w-8 h-8 rounded-lg bg-slate-700 flex items-center justify-center">
+          <img src="assets/logout.png" alt="Logout" class="w-4 h-4" />
+        </div>
+
+        <span class="text-sm text-red-400">
+          Logout
+        </span>
+
+      </a>
+
+    </div>
+
+  </div>
+
+</aside>

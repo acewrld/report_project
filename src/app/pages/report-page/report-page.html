@@ -3,82 +3,129 @@
     <h1 class="text-2xl font-bold mb-2">Run Report</h1>
     <p class="text-gray-600 mb-4">Run and view all Reports</p>
   </header>
-  <section class="lg:flex lg:mb-5 lg:gap-5 w-full rounded-md shadow-xl">
+
+  <section class="lg:flex lg:gap-8 w-full rounded-md shadow-xl">
+
+    <!-- Left Panel -->
     <div class="w-full bg-white rounded-md p-5 shadow-xl">
+
       <h2 class="font-bold text-xl">Select Report</h2>
+
       <button
         [matMenuTriggerFor]="menu"
-        class="border p-2 rounded w-full h-8 mb-4 bg-white justify-between flex px-3 py-2"
+        class="border p-2 rounded w-full h-10 mb-4 bg-white justify-between flex px-3 py-2"
       >
-        {{
-          selectedCategory ||
-            'All categories'
-        }}
-        <fa-icon [icon]="faAngleDown"></fa-icon>
+        {{ selectedCategory || 'All Categories' }}
+        <mat-icon>expand_more</mat-icon>
       </button>
-      <mat-menu
-        #menu="matMenu"
-        class="grid gap-2 w-fit h-fit absolute left-40 text-xl font-semibold bg-white shadow-lg rounded"
-      >
-        <a
-          routerLink="/dashboard"
-          class="block p-2 hover:bg-gray-200"
+
+      <mat-menu #menu="matMenu">
+
+        <button
+          mat-menu-item
           (click)="selectCategory('Guarantor Statement Report')"
-          >Guarantor Statement Report</a
         >
-        <a
-          routerLink="/report"
-          class="block p-2 hover:bg-gray-200"
+          Guarantor Statement Report
+        </button>
+
+        <button
+          mat-menu-item
           (click)="selectCategory('Client Statement Report')"
-          >Client Statement Report</a
         >
+          Client Statement Report
+        </button>
+
       </mat-menu>
 
-      <h2 class="font-bold text-xl">Parameters</h2>
+      <!-- Parameters -->
+
+      <h2 class="font-bold text-xl mt-4">Parameters</h2>
+
       <p class="font-bold py-1.5">Member Number:</p>
       <input
         type="text"
-        placeholder="Enter member Number..."
-        class="border p-2 rounded w-full h-8 mb-4"
+        [(ngModel)]="selectedMemberNumber"
+        placeholder="Enter member number..."
+        class="border p-2 rounded w-full h-10 mb-4"
       />
+
       <p class="font-bold py-1.5">Account Number:</p>
       <input
         type="text"
+        [(ngModel)]="selectedAccountNumber"
         placeholder="Enter account number..."
-        class="border p-2 rounded w-full h-8 mb-4"
+        class="border p-2 rounded w-full h-10 mb-4"
       />
+
       <p class="font-bold py-1.5">Date Range:</p>
       <input
         type="date"
-        placeholder="Select date range..."
-        class="border p-2 rounded w-full h-8 mb-4"
+        [(ngModel)]="selectedDate"
+        class="border p-2 rounded w-full h-10 mb-4"
       />
+
       <div class="flex justify-between">
-        <button class="bg-white text-black border px-4 py-1 rounded-md self-start">Reset</button>
-        <button class="bg-blue-600 text-white px-4 py-1 rounded-md self-end">Run Report</button>
+
+        <button
+          class="bg-white text-black border px-4 py-2 rounded-md"
+          (click)="resetForm()"
+        >
+          Reset
+        </button>
+
+        <button
+          class="bg-amber-500 text-white px-4 py-2 rounded-md"
+          (click)="runReport()"
+        >
+          Run Report
+        </button>
+
       </div>
     </div>
-    <div class="w-full bg-white rounded-md p-5 shadow-xl justify-center items-center flex flex-col">
+
+    <!-- Right Panel -->
+    <div class="w-full bg-white rounded-md p-5 shadow-xl flex flex-col items-center justify-center">
+
       <h2 class="font-bold text-xl">Report Output</h2>
-      <h3 class="text-gray-600 pt-2">
+
+      <h3 class="text-gray-600 pt-2 text-center">
         Report output will be displayed here after running the report.
       </h3>
+
       <p class="p-2 text-md font-bold">
-        Category: <span>{{ selectedCategory || 'All Categories' }}</span>
+        Category:
+        <span>{{ selectedCategory || 'All Categories' }}</span>
       </p>
+
       <p class="p-2 text-md font-bold">
-        Member Number: <span>{{ selectedMemberNumber || 'N/A' }}</span>
+        Member Number:
+        <span>{{ selectedMemberNumber || 'N/A' }}</span>
       </p>
+
       <p class="p-2 text-md font-bold">
-        Account Number: <span>{{ selectedAccountNumber || 'N/A' }}</span>
+        Account Number:
+        <span>{{ selectedAccountNumber || 'N/A' }}</span>
       </p>
+
       <p class="p-2 text-md font-bold">
-        Status: <span class="text-green-600">{{ selectedStatus || 'Success' }}</span>
+        Status:
+        <span class="text-green-600">
+          {{ selectedStatus || 'Success' }}
+        </span>
       </p>
+
       <div class="grid gap-4 w-fit place-items-center mt-5">
-        <button class="bg-white text-black border px-4 py-1 rounded-md self-start">View</button>
-        <button class="bg-blue-600 text-white px-4 py-1 rounded-md self-end">Download</button>
+
+        <button class="bg-white text-black border px-4 py-2 rounded-md">
+          View
+        </button>
+
+        <button class="bg-amber-500 text-white px-4 py-2 rounded-md">
+          Download
+        </button>
+
       </div>
+
     </div>
   </section>
 </div>

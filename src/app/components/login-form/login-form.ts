@@ -1,23 +1,36 @@
+// import { CommonModule, NgClass } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { RouterLink } from "@angular/router";
+import { FormBuilder, Validators, ReactiveFormsModule, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 @Component({
   selector: 'app-login-form',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
-  templateUrl: './login-form.html',
+  imports: [ReactiveFormsModule],
+  templateUrl: './login-form.html'
 })
 export class LoginForm {
-  form;
 
-  constructor(private fb: FormBuilder) {
+  form: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router
+  ) {
     this.form = this.fb.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required],
+      email: ['', [Validators.email, Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
-  
+  onSubmit() {
+    if (this.form.invalid) {
+      this.form.markAllAsDirty();
+      return;
+    }
+
+    // simulate login success
+    this.router.navigate(['/dashboard']);
+  }
 }
