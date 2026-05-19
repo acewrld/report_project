@@ -9,7 +9,7 @@ import { Profile } from './pages/profile/profile';
 
 
 export const routes: Routes = [
-  //Homepage
+  //Signin Page
   {
     path: '',
     component: Home,

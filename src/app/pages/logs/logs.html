@@ -67,6 +67,7 @@
     <div class="relative">
       <input
         type="date"
+        (change)="selectDate($event.target.value)"
         class="w-full h-11 rounded-xl border border-gray-200 bg-white px-4 shadow-sm focus:ring-2 focus:ring-amber-300 focus:outline-none"
       />
     </div>
@@ -106,10 +107,22 @@
 
         <button
           class="w-full text-left px-4 py-3 hover:bg-amber-50 hover:text-amber-600 transition"
-          (click)="selectAction('Update')"
+          (click)="selectAction('Ran Report')"
         >
-          Update
+          Ran Report
         </button>
+        <button
+          class="w-full text-left px-4 py-3 hover:bg-amber-50 hover:text-amber-600 transition"
+          (click)="selectAction('Update Report')"
+        >
+          Update Report
+        </button>
+        <button
+          class="w-full text-left px-4 py-3 hover:bg-amber-50 hover:text-amber-600 transition"
+          (click)="selectAction('Export Report')"
+        >
+          Export Report
+      </button>
 
       </div>
     </mat-menu>
@@ -161,6 +174,8 @@
     <div class="relative">
       <input
         type="text"
+        [(ngModel)]="searchText"
+        (input)="applyFilters()"
         placeholder="Search logs..."
         class="w-full h-11 rounded-xl border border-gray-200 bg-white px-4 pr-11 shadow-sm focus:ring-2 focus:ring-amber-300 focus:outline-none"
       />
@@ -208,7 +223,7 @@
       <tbody>
 
         <tr
-          *ngFor="let log of logs"
+          *ngFor="let log of datasource"
           class="border-t hover:bg-gray-50 transition duration-200"
         >
 

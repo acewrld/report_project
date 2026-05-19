@@ -1,22 +1,15 @@
 import { Component } from '@angular/core';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatCardModule } from '@angular/material/card';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faBars, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { FormsModule } from '@angular/forms';
-import { MatIcon } from "@angular/material/icon";
+import { MaterialModule } from '../../material/material-module';
 
 @Component({
   selector: 'app-report-page',
-  imports: [MatMenuModule, MatSidenavModule, FontAwesomeModule, MatCardModule, FormsModule, MatIcon],
+  imports: [MaterialModule, FormsModule],
   templateUrl: './report-page.html',
 })
 
 export class ReportPage {
   opened = false;
-  faBars = faBars;
-  faAngleDown = faAngleDown;
   selectedCategory = '';
 selectedMemberNumber = '';
 selectedAccountNumber = '';

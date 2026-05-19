@@ -1,17 +1,12 @@
 import { Component, signal } from '@angular/core';
 import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { MaterialModule } from './material/material-module';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    RouterOutlet,
-    MatSidenavModule,
-    FontAwesomeModule,
-  ],
+  imports: [RouterOutlet, MaterialModule],
   templateUrl: './app.html',
 })
 export class App {

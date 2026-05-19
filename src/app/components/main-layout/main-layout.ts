@@ -1,17 +1,15 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
 import { SideBar } from '../side-bar/side-bar';
+import { MaterialModule } from '../../material/material-module';
 
 @Component({
   selector: 'app-main-layout',
   standalone: true,
   imports: [
     RouterOutlet,
-    MatSidenavModule,
-    MatIconModule,
+    MaterialModule,
     SideBar,
   ],
   templateUrl: './main-layout.html',

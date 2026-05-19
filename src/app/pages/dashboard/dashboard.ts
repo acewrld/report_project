@@ -1,16 +1,8 @@
 import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faBars, faUser } from '@fortawesome/free-solid-svg-icons';
-import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
-import { MatIconModule } from '@angular/material/icon';
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-// import { NgClass } from '@angular/common';
+import { MaterialModule } from '../../material/material-module';
 
 
 interface Report {
@@ -24,29 +16,13 @@ interface Report {
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [
-    MatSidenavModule,
-    MatCheckboxModule,
-    MatMenu,
-    MatIconModule,
-    FormsModule,
-    CommonModule,
-    MatMenuTrigger,
-    MatButtonModule,
-    FontAwesomeModule,
-    RouterLink
-    // NgClass
-],
+  imports: [MaterialModule, FormsModule, CommonModule, RouterLink],
   templateUrl: './dashboard.html',
 })
 
 
 export class Dashboard {
   opened = false;
-  faBars = faBars;
-  faAngleDown = faAngleDown;
-  faUser = faUser;
-
   reports: Report[] = [
     {
       name: 'Loan Report',
@@ -104,14 +80,65 @@ statusClass(status: string): string {
   return this.statusClasses[status] || 'text-gray-600';
 }
 
-  selectedCategory: string = '';
-  selectedSort: string = '';
+searchText: string = '';
+selectedCategory: string = '';
+selectedSort: string = 'NameAsc';
 
-  selectCategory(category: string) {
-    this.selectedCategory = category;
-  }
+ selectCategory(category: string) {
+  this.selectedCategory = category;
+  this.applyFilters();
+}
 
   selectSort(sort: string) {
-    this.selectedSort = sort;
-  }
+  this.selectedSort = sort;
+  this.applyFilters();
 }
+
+  applyFilters() {
+
+  let data = this.reports
+
+   if (this.searchText?.trim()) {
+    const search = this.searchText.toLowerCase();
+
+    data = data.filter(r =>
+      r.name.toLowerCase().includes(search) ||
+      r.category.toLowerCase().includes(search) ||
+      r.lastRun.toLowerCase().includes(search) ||
+      r.date.toLowerCase().includes(search)
+    );
+  }
+
+
+  if (this.selectedCategory && this.selectedCategory !== 'All Categories') {
+    data = data.filter(r => r.category === this.selectedCategory);
+  }
+
+  switch (this.selectedSort) {
+
+    case 'NameAsc':
+      data.sort((a, b) => a.name.localeCompare(b.name));
+      break;
+
+    case 'NameDesc':
+      data.sort((a, b) => b.name.localeCompare(a.name));
+      break;
+
+    case 'Recent':
+      data.sort((a, b) =>
+        new Date(b.date).getTime() - new Date(a.date).getTime()
+      );
+      break;
+
+    case 'DateOldest':
+      data.sort((a, b) =>
+        new Date(a.date).getTime() - new Date(b.date).getTime()
+      );
+      break;
+  }
+
+  this.datasource = data;
+}
+}
+
+
