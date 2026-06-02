@@ -1,131 +1,184 @@
-<div class="p-5 bg-white">
-  <header>
-    <h1 class="text-2xl font-bold mb-2">Run Report</h1>
-    <p class="text-gray-600 mb-4">Run and view all Reports</p>
-  </header>
+<div class="min-h-screen bg-slate-50 p-6">
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-slate-900">Run Report</h1>
+    <p class="mt-2 text-slate-600">
+      Generate, view and export reports based on selected parameters.
+    </p>
+  </div>
 
-  <section class="lg:flex lg:gap-8 w-full rounded-md shadow-xl">
+  <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+    <div class="xl:col-span-1">
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
 
-    <!-- Left Panel -->
-    <div class="w-full bg-white rounded-md p-5 shadow-xl">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-lg font-semibold text-slate-900">
+            Report Parameters
+          </h2>
+          <span
+            class="text-xs font-medium px-3 py-1 rounded-full bg-amber-100 text-amber-700">
+            Required
+          </span>
+        </div>
 
-      <h2 class="font-bold text-xl">Select Report</h2>
+        <div class="space-y-5">
 
-      <button
-        [matMenuTriggerFor]="menu"
-        class="border p-2 rounded w-full h-10 mb-4 bg-white justify-between flex px-3 py-2"
-      >
-        {{ selectedCategory || 'All Categories' }}
-        <mat-icon>expand_more</mat-icon>
-      </button>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-2">
+              Member Number
+            </label>
+            <input
+              type="text"
+              [(ngModel)]="selectedMemberNumber"
+              placeholder="Enter member number"
+              class="w-full h-11 px-4 border border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition"
+            />
+          </div>
 
-      <mat-menu #menu="matMenu">
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-2">
+              Account Number
+            </label>
+            <input
+              type="text" required
+              [(ngModel)]="selectedAccountNumber"
+              placeholder="Enter account number"
+              class="w-full h-11 px-4 border border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition"
+            />
+          </div>
 
-        <button
-          mat-menu-item
-          (click)="selectCategory('Guarantor Statement Report')"
-        >
-          Guarantor Statement Report
-        </button>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-2">
+              Report Date
+            </label>
+            <input
+              type="date"
+              [(ngModel)]="selectedDate"
+              class="w-full h-11 px-4 border border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition"
+            />
+          </div>
 
-        <button
-          mat-menu-item
-          (click)="selectCategory('Client Statement Report')"
-        >
-          Client Statement Report
-        </button>
+        </div>
 
-      </mat-menu>
+        <div class="flex gap-3 mt-8">
 
-      <!-- Parameters -->
+          <button
+            (click)="resetForm()"
+            class="flex-1 h-11 rounded-xl border border-slate-300 text-slate-700 font-medium hover:bg-slate-100 transition">
+            Reset
+          </button>
 
-      <h2 class="font-bold text-xl mt-4">Parameters</h2>
+          <button
+            (click)="runReport()"
+            class="flex-1 h-11 rounded-xl bg-amber-500 text-white font-medium hover:bg-amber-600 transition shadow-sm">
+            Run Report
+          </button>
 
-      <p class="font-bold py-1.5">Member Number:</p>
-      <input
-        type="text"
-        [(ngModel)]="selectedMemberNumber"
-        placeholder="Enter member number..."
-        class="border p-2 rounded w-full h-10 mb-4"
-      />
-
-      <p class="font-bold py-1.5">Account Number:</p>
-      <input
-        type="text"
-        [(ngModel)]="selectedAccountNumber"
-        placeholder="Enter account number..."
-        class="border p-2 rounded w-full h-10 mb-4"
-      />
-
-      <p class="font-bold py-1.5">Date Range:</p>
-      <input
-        type="date"
-        [(ngModel)]="selectedDate"
-        class="border p-2 rounded w-full h-10 mb-4"
-      />
-
-      <div class="flex justify-between">
-
-        <button
-          class="bg-white text-black border px-4 py-2 rounded-md"
-          (click)="resetForm()"
-        >
-          Reset
-        </button>
-
-        <button
-          class="bg-amber-500 text-white px-4 py-2 rounded-md"
-          (click)="runReport()"
-        >
-          Run Report
-        </button>
+        </div>
 
       </div>
     </div>
 
-    <!-- Right Panel -->
-    <div class="w-full bg-white rounded-md p-5 shadow-xl flex flex-col items-center justify-center">
+    <div class="xl:col-span-2">
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
 
-      <h2 class="font-bold text-xl">Report Output</h2>
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h2 class="text-lg font-semibold text-slate-900">
+              Report Output
+            </h2>
+            <p class="text-sm text-slate-500 mt-1">
+              Generated report details and export options.
+            </p>
+          </div>
 
-      <h3 class="text-gray-600 pt-2 text-center">
-        Report output will be displayed here after running the report.
-      </h3>
+          <span
+            class="inline-flex items-center px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm font-medium">
+            {{ selectedStatus || 'Ready' }}
+          </span>
+        </div>
 
-      <p class="p-2 text-md font-bold">
-        Category:
-        <span>{{ selectedCategory || 'All Categories' }}</span>
-      </p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
 
-      <p class="p-2 text-md font-bold">
-        Member Number:
-        <span>{{ selectedMemberNumber || 'N/A' }}</span>
-      </p>
+          <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+            <p class="text-xs uppercase text-slate-500 mb-1">
+              Category
+            </p>
+            <p class="font-semibold text-slate-900">
+              {{ selectedCategory || 'All Categories' }}
+            </p>
+          </div>
 
-      <p class="p-2 text-md font-bold">
-        Account Number:
-        <span>{{ selectedAccountNumber || 'N/A' }}</span>
-      </p>
+          <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+            <p class="text-xs uppercase text-slate-500 mb-1">
+              Member Number
+            </p>
+            <p class="font-semibold text-slate-900">
+              {{ selectedMemberNumber || 'N/A' }}
+            </p>
+          </div>
 
-      <p class="p-2 text-md font-bold">
-        Status:
-        <span class="text-green-600">
-          {{ selectedStatus || 'Success' }}
-        </span>
-      </p>
+          <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+            <p class="text-xs uppercase text-slate-500 mb-1">
+              Account Number
+            </p>
+            <p class="font-semibold text-slate-900">
+              {{ selectedAccountNumber || 'N/A' }}
+            </p>
+          </div>
 
-      <div class="grid gap-4 w-fit place-items-center mt-5">
+        </div>
 
-        <button class="bg-white text-black border px-4 py-2 rounded-md">
-          View
+        <div
+          class="border-2 border-dashed border-slate-200 rounded-2xl h-72 flex flex-col items-center justify-center text-center">
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-14 w-14 text-slate-300 mb-4"
+            fill="amber-500/20"
+            viewBox="0 0 24 24"
+            stroke="currentColor">
+
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              d="M9 17v-6h13M9 5v6h13M3 5h.01M3 12h.01M3 19h.01" />
+          </svg>
+
+          <h3 class="font-semibold text-slate-700">
+            No Report Generated
+          </h3>
+
+          <p class="text-sm text-slate-500 mt-2 max-w-md">
+            Run a report using the selected parameters. The generated
+            report will appear here and can be viewed, downloaded or
+            shared.
+          </p>
+
+        </div>
+
+        <div class="flex flex-wrap gap-3 justify-end mt-6">
+
+          <button
+            class="p-2 flex justify-between text-center border border-slate-300 rounded-xl text-slate-700 hover:bg-slate-100 transition">
+            <mat-icon>visibility</mat-icon>
+            <span class="ml-2 py-1">View Report</span>
+          </button>
+          <button
+            class="p-2 flex justify-between text-center border border-slate-300 bg-amber-500 text-white rounded-xl hover:bg-amber-600 transition">
+            <mat-icon>download</mat-icon>
+            <span class="ml-2 py-1">Download Report</span>
+          </button>
+          <button
+            class="p-2 flex justify-between text-center border border-slate-300 bg-slate-900 text-white rounded-xl hover:bg-slate-800 transition">
+            <mat-icon>email</mat-icon>
+            <span class="ml-2 py-1">Send to Email</span>
         </button>
-
-        <button class="bg-amber-500 text-white px-4 py-2 rounded-md">
-          Download
-        </button>
+        </div>
 
       </div>
-
     </div>
-  </section>
+
+  </div>
+
 </div>

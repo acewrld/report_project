@@ -1,1 +1,135 @@
-<p>department works!</p>
+<div class="p-6 bg-linear-to-br from-gray-50 to-gray-100 min-h-screen">
+  <header class="flex flex-col lg:flex-row lg:items-center justify-between gap-5 mb-8">
+    <div>
+      <h1 class="text-3xl font-bold text-slate-800 tracking-tight">All Reports</h1>
+
+      <p class="text-gray-500 mt-1 text-sm">Browse, organize and run all reports from one place</p>
+    </div>
+
+    <button
+      [matMenuTriggerFor]="user"
+      class="flex items-center gap-3 px-4 py-2 rounded-2xl bg-white border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-300"
+    >
+      <div
+        class="w-10 h-10 rounded-full bg-linear-to-r from-amber-400 to-orange-400 flex items-center justify-center text-white shadow-md"
+      >
+        <mat-icon>account_circle</mat-icon>
+      </div>
+
+      <div class="text-left">
+        <p class="text-sm font-semibold text-slate-700">{{ globalState.user }}</p>
+      </div>
+      <mat-icon class="text-gray-400 text-sm">expand_more</mat-icon>
+    </button>
+
+    <mat-menu #user="matMenu" class="rounded-2xl overflow-hidden">
+      <div class="py-2 min-w-55">
+        <a
+          routerLink="/logout"
+          class="flex items-center gap-3 px-4 py-3 text-red-500 hover:bg-red-50 transition"
+        >
+          <mat-icon>logout</mat-icon>
+          Logout
+        </a>
+      </div>
+    </mat-menu>
+  </header>
+
+  <div class="bg-white rounded-3xl border border-gray-200 shadow-sm p-5 mb-6">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+
+      <app-search-btn (searchChange)="onSearch($event)"></app-search-btn>
+
+      <button
+        [matMenuTriggerFor]="categorymenu"
+        class="h-12 rounded-2xl border border-gray-200 bg-gray-50 px-4 flex items-center justify-between hover:bg-white hover:shadow-sm transition"
+      >
+        <div class="flex items-center gap-2">
+          <mat-icon class="text-amber-500 text-[20px]"> category </mat-icon>
+
+          <span class="text-gray-700 text-sm font-medium">
+            {{ selectedCategory || 'All Categories' }}
+          </span>
+        </div>
+        <mat-icon class="text-gray-400">expand_more</mat-icon>
+      </button>
+
+      <mat-menu #categorymenu="matMenu" class="rounded-2xl overflow-hidden">
+        <div class="py-2 min-w-60">
+          <button
+            (click)="selectCategory('All Categories')"
+            class="w-full text-left px-4 py-3 hover:bg-amber-50 hover:text-amber-600 transition"
+          >
+            All Categories
+          </button>
+
+          <button
+            class="w-full text-left px-4 py-3 hover:bg-amber-50 hover:text-amber-600 transition"
+            (click)="selectCategory('Loan')"
+          >
+            Loan
+          </button>
+
+          <button
+            class="w-full text-left px-4 py-3 hover:bg-amber-50 hover:text-amber-600 transition"
+            (click)="selectCategory('Finance')"
+          >
+            Finance
+          </button>
+        </div>
+      </mat-menu>
+
+      <button
+        [matMenuTriggerFor]="sortmenu"
+        class="h-12 rounded-2xl border border-gray-200 bg-gray-50 px-4 flex items-center justify-between hover:bg-white hover:shadow-sm transition"
+      >
+        <div class="flex items-center gap-2">
+          <mat-icon class="text-amber-500 text-[20px]"> sort </mat-icon>
+
+          <span class="text-gray-700 text-sm font-medium">
+            {{ selectedSort || 'Sort by: Name (A - Z)' }}
+          </span>
+        </div>
+
+        <mat-icon class="text-gray-400">expand_more</mat-icon>
+      </button>
+
+      <mat-menu #sortmenu="matMenu" class="rounded-2xl overflow-hidden">
+        <div class="py-2 min-w-60">
+          <button
+            (click)="selectSort('All')"
+            class="w-full text-left px-4 py-3 hover:bg-amber-50 hover:text-amber-600 transition"
+          >
+            All
+          </button>
+
+          <button
+            (click)="selectSort('NameAsc')"
+            class="w-full text-left px-4 py-3 hover:bg-amber-50 hover:text-amber-600 transition"
+          >
+            Name (A - Z)
+          </button>
+
+          <button
+            (click)="selectSort('Recent')"
+            class="w-full text-left px-4 py-3 hover:bg-amber-50 hover:text-amber-600 transition"
+          >
+            Recents
+          </button>
+        </div>
+      </mat-menu>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden">
+    <div class="flex items-center justify-between px-6 py-5 border-b bg-gray-50">
+      <div>
+        <h2 class="text-lg font-semibold text-slate-800">Reports List</h2>
+
+        <p class="text-sm text-gray-500">Manage and monitor all available reports</p>
+      </div>
+    </div>
+    <div class="p-6">
+      <app-report-table></app-report-table> 
+  </div>
+</div>

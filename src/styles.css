@@ -3,10 +3,10 @@
 @import 'tailwindcss';
 
 
+* {
+    box-sizing: border-box;
+}
+
 button {
     cursor: pointer;
 }
-
-/* * {
-    background-color: ;
-} */

@@ -6,7 +6,7 @@ import { MaterialModule } from './material/material-module';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, MaterialModule],
+  imports: [RouterOutlet, MaterialModule ],
   templateUrl: './app.html',
 })
 export class App {
@@ -26,3 +26,10 @@ export class App {
     this.opened.set(!this.opened());
   }
 }
+
+export class GlobalService {
+
+  // Global variables
+  user: string = 'Ademola';
+}
+

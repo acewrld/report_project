@@ -1,46 +1,59 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from "@angular/router";
-import { FormsModule } from "@angular/forms";
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../../material/material-module';
+import { CommonModule } from '@angular/common';
+import { GlobalStateService } from '../../services/global-state';
 
 @Component({
   selector: 'app-side-bar',
-  imports: [RouterLink, RouterLinkActive, MaterialModule, FormsModule],
+  standalone: true,
+  imports: [RouterLink, RouterLinkActive, MaterialModule, FormsModule, CommonModule],
   templateUrl: './side-bar.html',
 })
 export class SideBar {
-  selectedDepartment: string = '';
-  
 
-  selectDepartment(department: string) {
-    this.selectedDepartment = department;
+  constructor(private router: Router, public globalState: GlobalStateService) {}
 
-  }
+
+   isDeptOpen = false;
+
+  activeRoute: string = '';
 
   dropdownLink = [
     {
       id: '1',
       name: 'Account and Finance',
       iconUrl: 'payment',
-      selectItem: '/report'
+      selectItem: '/department'
     },
     {
       id: '2',
       name: 'BOSA',
-      iconUrl:'account_balance',
-      uselectItemrl: '/report'
+      iconUrl: 'account_balance',
+      selectItem: '/department'
     },
     {
       id: '3',
-      name: 'CUSTOMER SERVICE, SAVINGS AND FOSA',
-      iconUrl:'support_agent',
-      selectItem: '/report'
+      name: 'Customer Service',
+      iconUrl: 'support_agent',
+      selectItem: '/department'
     },
     {
       id: '4',
       name: 'Others',
       iconUrl: 'keyboard_double_arrow_down',
-      selectItem: '/report'
+      selectItem: '/department'
     }
-  ]
+  ];
+
+ 
+
+toggleDept(): void {
+  this.isDeptOpen = !this.isDeptOpen;
+}
+
+goToRoute(route: string) {
+  this.router.navigate([route]);
+}
 }

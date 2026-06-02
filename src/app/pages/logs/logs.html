@@ -1,7 +1,6 @@
 <div class="p-6 bg-gray-50">
 
-  <!-- HEADER -->
-  <header class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+  <header class="lg:flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
 
     <div>
       <h1 class="text-3xl font-bold text-slate-800">Audit Log</h1>
@@ -10,17 +9,13 @@
       </p>
     </div>
 
-    <!-- USER MENU -->
     <button
       [matMenuTriggerFor]="user"
-      class="flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300"
+      class="hidden lg:flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300"
     >
+        <mat-icon class="w-9 h-9 rounded-full bg-amber-100 text-amber-500">account_circle</mat-icon>
 
-      <div class="w-9 h-9 rounded-full bg-amber-100 flex items-center justify-center">
-        <mat-icon class="text-amber-500">account_circle</mat-icon>
-      </div>
-
-      <span class="font-medium text-gray-700">John Doe</span>
+      <span class="font-medium text-gray-700">{{ globalState.user }}</span>
 
       <mat-icon class="text-gray-500 text-sm">
         expand_more
@@ -30,23 +25,6 @@
 
     <mat-menu #user="matMenu" class="rounded-2xl overflow-hidden">
       <div class="py-2 min-w-45">
-
-        <a
-          class="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 transition"
-          routerLink="/profile"
-        >
-          <mat-icon class="text-gray-500 text-base">person</mat-icon>
-          Profile
-        </a>
-
-        <a
-          class="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 transition"
-          routerLink="/"
-        >
-          <mat-icon class="text-gray-500 text-base">settings</mat-icon>
-          Settings
-        </a>
-
         <a
           class="flex items-center gap-3 px-4 py-3 text-red-500 hover:bg-red-50 transition"
           routerLink="/logout"
@@ -60,10 +38,8 @@
 
   </header>
 
-  <!-- FILTERS -->
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
 
-    <!-- DATE -->
     <div class="relative">
       <input
         type="date"
@@ -72,7 +48,7 @@
       />
     </div>
 
-    <!-- ACTION FILTER -->
+
     <button
       [matMenuTriggerFor]="menu"
       class="h-11 rounded-xl border border-gray-200 bg-white px-4 flex items-center justify-between shadow-sm hover:shadow-md transition"
@@ -127,7 +103,6 @@
       </div>
     </mat-menu>
 
-    <!-- STATUS FILTER -->
     <button
       [matMenuTriggerFor]="meenu"
       class="h-11 rounded-xl border border-gray-200 bg-white px-4 flex items-center justify-between shadow-sm hover:shadow-md transition"
@@ -189,7 +164,6 @@
 
   </div>
 
-  <!-- TABLE -->
   <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
 
     <table class="w-full border-collapse">

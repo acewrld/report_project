@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MaterialModule } from '../../material/material-module';
 import { FormsModule } from '@angular/forms';
+import { GlobalStateService } from '../../services/global-state';
 
 
 
@@ -12,6 +13,11 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './logs.html',
 })
 export class Logs {
+  constructor( public globalState: GlobalStateService) {}
+
+  ngOnInit() {
+    console.log(this.globalState.user);
+  }
   opened = false;
 
   logs = [
@@ -90,7 +96,7 @@ export class Logs {
 
 applyFilters() {
 
-  let data = [...this.logs];
+  let data = this.logs;
 
   if (this.searchText?.trim()) {
     const search = this.searchText.toLowerCase();

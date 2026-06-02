@@ -30,7 +30,6 @@ export class LoginForm {
       return;
     }
 
-    // simulate login success
     this.router.navigate(['/dashboard']);
   }
 }

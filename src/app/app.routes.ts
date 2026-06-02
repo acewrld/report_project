@@ -5,11 +5,10 @@ import { ReportPage } from './pages/report-page/report-page';
 import { Logs } from './pages/logs/logs';
 import { MainLayout } from './components/main-layout/main-layout';
 import { Settings } from './pages/settings/settings';
-import { Profile } from './pages/profile/profile';
+import { Department } from './pages/department/department';
 
 
 export const routes: Routes = [
-  //Signin Page
   {
     path: '',
     component: Home,
@@ -24,7 +23,7 @@ export const routes: Routes = [
       { path: 'report', component: ReportPage },
       { path: 'audit', component: Logs },
       {path: 'settings', component: Settings },
-      {path: 'profile', component: Profile }
+      {path: 'department', component: Department }
     ],
   },
 ];

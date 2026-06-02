@@ -4,6 +4,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatMenu, MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatCardModule} from '@angular/material/card';
+import {MatTableModule} from '@angular/material/table';
 
 const MaterialComponent = [
   MatSidenavModule,
@@ -14,6 +18,10 @@ const MaterialComponent = [
   MatMenuTrigger,
   MatMenu,
   MatIcon,
+  MatSelectModule,
+  MatFormFieldModule,
+  MatCardModule,
+  MatTableModule
 
 ]
 

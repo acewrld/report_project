@@ -1,103 +1,148 @@
 <aside
-  class="w-72 h-screen bg-slate-900 text-white flex flex-col justify-between shadow-2xl border-r border-slate-800"
+  class="w-64 h-screen sticky top-0 bg-slate-900 border-r border-slate-800 flex flex-col justify-between shadow-xl"
 >
   <div>
-    <div class="flex items-center gap-3 px-6 py-6 border-b border-slate-800">
-      <div class="bg-amber-400 p-2 rounded-xl shadow-lg">
-        <img src="assets/signal.png" alt="logo" class="w-7 h-7 object-contain" />
-      </div>
+    <div class="px-6 py-6 border-b border-slate-800">
+      <div class="flex items-center gap-4">
 
-      <div>
-        <h2 class="font-bold text-xl tracking-wide">Report Portal</h2>
+        <div
+          class="h-12 w-12 rounded-xl bg-linear-to-br from-amber-400 to-amber-500 flex items-center justify-center shadow-lg"
+        >
+          <img
+            src="assets/signal.png"
+            alt="Logo"
+            class="h-8 w-8 object-contain"
+          >
+        </div>
 
-        <p class="text-xs text-slate-400">Analytics Dashboard</p>
+        <div>
+          <h2 class="text-lg font-bold text-white tracking-wide">
+            Report Portal
+          </h2>
+
+          <p class="text-xs text-slate-400">
+            Analytics & Reporting
+          </p>
+        </div>
+
       </div>
     </div>
 
-    <!-- NAVIGATION -->
-    <ul class="flex flex-col gap-3 px-4 py-6 text-sm font-medium">
-      <li>
-        <a
-          routerLink="/dashboard"
-          routerLinkActive="bg-amber-400 text-slate-900 shadow-lg"
-          class="flex items-center gap-3 px-4 py-3 rounded-2xl text-slate-300 hover:bg-slate-800 hover:text-white transition-all duration-300"
-        >
-          <div class="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center">
-            <img src="assets/home.png" alt="Dashboard" class="w-5 h-5" />
-          </div>
+    <div class="px-4 pt-6">
 
-          <span>Dashboard</span>
-        </a>
-      </li>
+      <p
+        class="mb-4 px-2 text-xs font-semibold uppercase tracking-widest text-slate-500"
+      >
+        Navigation
+      </p>
 
-      <li>
-        <button
-          [matMenuTriggerFor]="departmentmenu"
-          routerLinkActive="bg-amber-400 text-slate-900 shadow-lg"
-          class="w-full flex items-center justify-between px-4 py-3 rounded-2xl text-slate-300 hover:bg-slate-800 hover:text-white transition-all duration-300"
-        >
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center">
-              <mat-icon class="text-amber-400"> assignment </mat-icon>
+      <ul class="space-y-2">
+
+        <li>
+          <a
+            routerLink="/dashboard"
+            routerLinkActive="bg-amber-400 text-slate-900 shadow-md"
+            #dashboardLink="routerLinkActive"
+            class="group flex items-center gap-3 rounded-xl px-4 py-3 text-slate-300 transition-all duration-200 hover:bg-slate-800 hover:text-white"
+          >
+            <mat-icon>dashboard</mat-icon>
+
+            <span class="font-medium">Dashboard</span>
+          </a>
+        </li>
+
+        <li>
+
+          <button
+            (click)="toggleDept()"
+            class="w-full flex items-center justify-between rounded-xl px-4 py-3 text-slate-300 hover:bg-slate-800 hover:text-white transition-all duration-200"
+          >
+            <div class="flex items-center gap-3">
+              <mat-icon>apartment</mat-icon>
+
+              <span class="font-medium">
+                Departments
+              </span>
             </div>
-            <span>Departments</span>
-          </div>
-          <mat-icon class="text-base opacity-70"> keyboard_arrow_down </mat-icon>
-        </button>
 
-        <mat-menu #departmentmenu="matMenu" class="rounded-2xl overflow-hidden w-fit">
-          @for (item of dropdownLink; track item.id) {
-            <div class="py-2 min-w-65 bg-white">
-              <button
-                [routerLink]="[item.selectItem]"
-                class="flex text-left gap-3 px-4 py-3 w-full text-sm text-slate-700 hover:bg-amber-50 hover:text-amber-600"
-              >
-                <mat-icon>{{ item.iconUrl }}</mat-icon>
+            <mat-icon>
+              {{ isDeptOpen ? 'expand_less' : 'expand_more' }}
+            </mat-icon>
+          </button>
+
+          <div
+            *ngIf="isDeptOpen"
+            class="ml-5 mt-2 border-l border-slate-700 pl-4"
+          >
+            <div
+              *ngFor="let item of dropdownLink"
+              (click)="goToRoute(item.selectItem)"
+              class="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-400 transition-all duration-200 hover:bg-slate-800 hover:text-white"
+            >
+              <mat-icon class="text-base">
+                {{ item.iconUrl }}
+              </mat-icon>
+
+              <span>
                 {{ item.name }}
-              </button>
+              </span>
             </div>
-          }
-        </mat-menu>
-      </li>
-      <li>
-        <a
-          routerLink="/audit"
-          routerLinkActive="bg-amber-400 text-slate-900 shadow-lg"
-          class="flex items-center gap-3 px-4 py-3 rounded-2xl text-slate-300 hover:bg-slate-800 hover:text-white transition-all duration-300"
-        >
-          <div class="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center">
-            <img src="assets/logistics-management.png" alt="Audit Log" class="w-5 h-5" />
           </div>
-          <span>Audit Log</span>
-        </a>
-      </li>
-    </ul>
-  </div>
 
-  <!-- FOOTER -->
-  <div class="px-4 py-5 border-t border-slate-800">
-    <div class="bg-slate-800 rounded-2xl p-3 flex flex-col gap-2">
-      <a
-        routerLink="/settings"
-        class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-700 transition"
-      >
-        <div class="w-8 h-8 rounded-lg bg-slate-700 flex items-center justify-center">
-          <img src="assets/settings.png" alt="Settings" class="w-4 h-4" />
-        </div>
+        </li>
 
-        <span class="text-sm text-slate-300"> Settings </span>
-      </a>
+        <li>
+          <a
+            routerLink="/audit"
+            routerLinkActive="bg-amber-400 text-slate-900 shadow-md"
+            class="group flex items-center gap-3 rounded-xl px-4 py-3 text-slate-300 transition-all duration-200 hover:bg-slate-800 hover:text-white"
+          >
+            <mat-icon>history</mat-icon>
 
-      <a
-        routerLink="/"
-        class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-red-500/10 transition"
-      >
-        <div class="w-8 h-8 rounded-lg bg-slate-700 flex items-center justify-center">
-          <img src="assets/logout.png" alt="Logout" class="w-4 h-4" />
-        </div>
+            <span class="font-medium">
+              Audit Log
+            </span>
+          </a>
+        </li>
 
-        <span class="text-sm text-red-400"> Logout </span>
-      </a>
+      </ul>
     </div>
+
   </div>
+
+  <div class="border-t border-slate-800 p-4">
+
+    <div
+      class="mb-4 rounded-xl border border-slate-700 bg-slate-800 p-4"
+    >
+      <div class="flex items-center gap-3">
+
+        <div
+          class="flex h-10 w-10 items-center justify-center rounded-full bg-amber-400 font-bold text-slate-900"
+        >
+          {{ globalState.user.charAt(0) }}
+        </div>
+
+        <div>
+          <p class="text-sm font-semibold text-white">
+            {{ globalState.user }}
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <a
+      routerLink="/"
+      class="flex items-center gap-3 rounded-xl px-4 py-3 text-red-400 transition-all duration-200 hover:bg-red-500/10"
+    >
+      <mat-icon>logout</mat-icon>
+
+      <span class="font-medium">
+        Sign Out
+      </span>
+    </a>
+
+  </div>
+
 </aside>
