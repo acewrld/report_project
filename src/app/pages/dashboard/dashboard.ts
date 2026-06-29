@@ -2,21 +2,16 @@ import { Component } from '@angular/core';
 import { MaterialModule } from '../../material/material-module';
 import { CommonModule } from '@angular/common';
 import { DASHBOARDLIST, DashboardList } from '../../api/dashboard';
-import { SearchBtn } from '../../components/search-btn/search-btn';
 import { BarChart } from '../../components/bar-chart/bar-chart';
 import { GlobalStateService } from '../../services/global-state';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [MaterialModule, CommonModule, SearchBtn, BarChart],
+  imports: [MaterialModule, CommonModule, BarChart],
   templateUrl: './dashboard.html',
 })
 export class Dashboard {
   constructor( public globalState: GlobalStateService) {}
-
-  ngOnInit() {
-    console.log(this.globalState.user);
-  }
 
   searchText = '';
   activeTab = '6m';
@@ -35,6 +30,5 @@ export class Dashboard {
 
   onSearch(value: string) {
     this.searchText = value;
-    console.log('Search text:', this.searchText);
   }
 }

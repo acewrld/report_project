@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { Home } from './pages/home/home';
 import { Dashboard } from './pages/dashboard/dashboard';
 import { ReportPage } from './pages/report-page/report-page';
 import { Logs } from './pages/logs/logs';
@@ -9,19 +8,17 @@ import { Department } from './pages/department/department';
 
 export const routes: Routes = [
   {
-    path: '',
-    component: Home,
+    path: '', pathMatch: 'full', loadComponent: () => import('./pages/home/home').then(m => m.Home),
   },
-
-  // Routes WITH sidenav
   {
     path: '',
     component: MainLayout,
     children: [
-      { path: 'dashboard', component: Dashboard },
-      { path: 'report', component: ReportPage },
-      { path: 'audit', component: Logs },
-      {path: 'department', component: Department }
+      {
+        path: 'dashboard', pathMatch: 'full', loadComponent: () => import('./pages/dashboard/dashboard').then(m => m.Dashboard) },
+      { path: 'report', pathMatch: 'full', loadComponent: () => import('./pages/report-page/report-page').then(m => m.ReportPage) },
+      { path: 'audit', pathMatch: 'full', loadComponent: () => import('./pages/logs/logs').then(m => m.Logs) },
+      { path: 'department', pathMatch: 'full', loadComponent: () => import('./pages/department/department').then(m => m.Department) }
     ],
   },
 ];

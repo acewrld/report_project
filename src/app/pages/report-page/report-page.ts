@@ -1,16 +1,17 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../../material/material-module';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-report-page',
-  imports: [MaterialModule, FormsModule],
+  imports: [MaterialModule, FormsModule, NgClass],
   templateUrl: './report-page.html',
 })
 
 export class ReportPage {
-  opened = false;
-  selectedCategory = '';
+opened = true;
+selectedCategory = '';
 selectedMemberNumber = '';
 selectedAccountNumber = '';
 selectedDate = '';
@@ -21,7 +22,10 @@ selectCategory(category: string) {
 }
 
 runReport() {
-  this.selectedStatus = 'Report Generated';
+  if (this.selectedAccountNumber && this.selectedMemberNumber && this.selectedDate
+  )
+    this.selectedStatus = 'Report Generated'
+    this.opened = false
 }
 
 resetForm() {
@@ -30,5 +34,6 @@ resetForm() {
   this.selectedAccountNumber = '';
   this.selectedDate = '';
   this.selectedStatus = '';
+  this.opened = true;
 }
 }

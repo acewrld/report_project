@@ -1,4 +1,4 @@
-// import { CommonModule, NgClass } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -7,10 +7,12 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login-form',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './login-form.html'
 })
 export class LoginForm {
+
+  hidden: boolean = false;
 
   form: FormGroup;
 
@@ -27,9 +29,12 @@ export class LoginForm {
   onSubmit() {
     if (this.form.invalid) {
       this.form.markAllAsDirty();
-      return;
+      this.hidden = true;
     }
 
+    else {
+    console.log(this.form.value)
     this.router.navigate(['/dashboard']);
   }
+}
 }

@@ -27,9 +27,3 @@ export class App {
   }
 }
 
-export class GlobalService {
-
-  // Global variables
-  user: string = 'Ademola';
-}
-

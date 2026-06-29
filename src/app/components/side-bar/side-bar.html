@@ -2,42 +2,28 @@
   class="w-64 h-screen sticky top-0 bg-slate-900 border-r border-slate-800 flex flex-col justify-between shadow-xl"
 >
   <div>
-    <div class="px-6 py-6 border-b border-slate-800">
+    <header class="px-6 py-6 border-b border-slate-800">
       <div class="flex items-center gap-4">
-
         <div
           class="h-12 w-12 rounded-xl bg-linear-to-br from-amber-400 to-amber-500 flex items-center justify-center shadow-lg"
         >
-          <img
-            src="assets/signal.png"
-            alt="Logo"
-            class="h-8 w-8 object-contain"
-          >
+          <img src="assets/signal.png" alt="Logo" class="h-8 w-8 object-contain" />
         </div>
 
         <div>
-          <h2 class="text-lg font-bold text-white tracking-wide">
-            Report Portal
-          </h2>
+          <h2 class="text-lg font-bold text-white tracking-wide">Report Portal</h2>
 
-          <p class="text-xs text-slate-400">
-            Analytics & Reporting
-          </p>
+          <p class="text-xs text-slate-400">Analytics & Reporting</p>
         </div>
-
       </div>
-    </div>
+    </header>
 
     <div class="px-4 pt-6">
-
-      <p
-        class="mb-4 px-2 text-xs font-semibold uppercase tracking-widest text-slate-500"
-      >
+      <p class="mb-4 px-2 text-xs font-semibold uppercase tracking-widest text-slate-500">
         Navigation
       </p>
 
       <ul class="space-y-2">
-
         <li>
           <a
             routerLink="/dashboard"
@@ -52,17 +38,13 @@
         </li>
 
         <li>
-
           <button
             (click)="toggleDept()"
             class="w-full flex items-center justify-between rounded-xl px-4 py-3 text-slate-300 hover:bg-slate-800 hover:text-white transition-all duration-200"
           >
             <div class="flex items-center gap-3">
               <mat-icon>apartment</mat-icon>
-
-              <span class="font-medium">
-                Departments
-              </span>
+              <span class="font-medium"> Departments </span>
             </div>
 
             <mat-icon>
@@ -70,10 +52,7 @@
             </mat-icon>
           </button>
 
-          <div
-            *ngIf="isDeptOpen"
-            class="ml-5 mt-2 border-l border-slate-700 pl-4"
-          >
+          <div *ngIf="isDeptOpen" class="ml-5 mt-2 border-l border-slate-700 pl-4">
             <div
               *ngFor="let item of dropdownLink"
               (click)="goToRoute(item.selectItem)"
@@ -88,7 +67,6 @@
               </span>
             </div>
           </div>
-
         </li>
 
         <li>
@@ -99,26 +77,18 @@
           >
             <mat-icon>history</mat-icon>
 
-            <span class="font-medium">
-              Audit Log
-            </span>
+            <span class="font-medium"> Audit Log </span>
           </a>
         </li>
-
       </ul>
     </div>
-
   </div>
 
   <div class="border-t border-slate-800 p-4">
-
-    <div
-      class="mb-4 rounded-xl border border-slate-700 bg-slate-800 p-4"
-    >
+    <div class="mb-4 rounded-xl border border-slate-700 bg-slate-800 p-2">
       <div class="flex items-center gap-3">
-
         <div
-          class="flex h-10 w-10 items-center justify-center rounded-full bg-amber-400 font-bold text-slate-900"
+          class="flex h-7 w-7 items-center justify-center rounded-full bg-amber-400 font-bold text-slate-900"
         >
           {{ globalState.user.charAt(0) }}
         </div>
@@ -128,7 +98,6 @@
             {{ globalState.user }}
           </p>
         </div>
-
       </div>
     </div>
 
@@ -138,11 +107,7 @@
     >
       <mat-icon>logout</mat-icon>
 
-      <span class="font-medium">
-        Sign Out
-      </span>
+      <span class="font-medium"> Sign Out </span>
     </a>
-
   </div>
-
 </aside>
