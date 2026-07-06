@@ -22,6 +22,7 @@ export class ReportPage implements OnInit {
   selectedDate = '';
 selectedStatus = '';
   hideModal = true;
+  reportDate = '';
 name = ''
   form!: FormGroup;
 
@@ -47,6 +48,9 @@ name = ''
     return;
   }
 else {
+  this.reportDate = this.form.value.reportDate;
+  this.selectedMemberNumber = this.form.value.memberNumber;
+  this.selectedAccountNumber = this.form.value.accountNumber;
   this.selectedStatus = 'Report Generated';
   this.opened = false;
   this.hideModal = false;
@@ -54,9 +58,11 @@ else {
   }
 
 resetForm() {
+  this.form.reset();
+  this.selectedCategory = '';
   this.selectedMemberNumber = '';
   this.selectedAccountNumber = '';
-  this.selectedDate = '';
+  this.reportDate = '';
   this.selectedStatus = '';
   this.opened = true;
   this.hideModal = true
