@@ -3,7 +3,7 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../../material/material-module';
 import { CommonModule } from '@angular/common';
-import { GlobalStateService } from '../../services/global-state';
+import { ReportService } from '../../services/reports';
 
 @Component({
   selector: 'app-side-bar',
@@ -12,8 +12,11 @@ import { GlobalStateService } from '../../services/global-state';
   templateUrl: './side-bar.html',
 })
 export class SideBar {
-
-  constructor(private router: Router, public globalState: GlobalStateService) {}
+  user = '';
+  
+  constructor(private router: Router, private reportService: ReportService) {
+    this.user = this.reportService.globalState.user;
+  }
 
 
    isDeptOpen = false;

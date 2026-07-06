@@ -8,6 +8,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCardModule} from '@angular/material/card';
 import {MatTableModule} from '@angular/material/table';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 const MaterialComponent = [
   MatSidenavModule,
@@ -21,7 +22,8 @@ const MaterialComponent = [
   MatSelectModule,
   MatFormFieldModule,
   MatCardModule,
-  MatTableModule
+  MatTableModule,
+  MatProgressSpinnerModule
 
 ]
 

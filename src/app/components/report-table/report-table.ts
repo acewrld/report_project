@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { MaterialModule } from '../../material/material-module';
-import { REPORTS, Report } from '../../api/reports';
+import { ReportInterface } from '../../interface/report';
+import { ReportService } from '../../services/reports';
 
 @Component({
   selector: 'app-report-table',
@@ -15,8 +16,13 @@ export class ReportTable {
   selectedCategory = '';
   selectedSort = '';
 
-  allReports: Report[] = REPORTS;
+  allReports: ReportInterface[] = [];
   datasource = this.allReports
+
+  constructor(private reportService: ReportService) {
+    this.allReports = (this.reportService as any).reports ?? [];
+    this.datasource = this.allReports;
+  }
 
 onSearch(value: string) {
   this.searchText = value;
@@ -42,7 +48,7 @@ onSearch(value: string) {
     data = data.filter(r =>
       r.name.toLowerCase().includes(search) ||
       r.category.toLowerCase().includes(search) ||
-      r.lastRun.toLowerCase().includes(search) ||
+      r.user.toLowerCase().includes(search) ||
       r.date.toLowerCase().includes(search)
     );
   }

@@ -3,9 +3,7 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MaterialModule } from '../../material/material-module';
 import { FormsModule } from '@angular/forms';
-import { GlobalStateService } from '../../services/global-state';
-
-
+import { ReportService } from '../../services/reports';
 
 @Component({
   selector: 'app-logs',
@@ -13,12 +11,13 @@ import { GlobalStateService } from '../../services/global-state';
   templateUrl: './logs.html',
 })
 export class Logs {
-  constructor( public globalState: GlobalStateService) {}
-
-  ngOnInit() {
-    console.log(this.globalState.user);
+  g_users = '';
+  constructor( public reportService: ReportService) {
+    this.g_users = this.reportService.globalState.user;
+    
   }
-  opened = false;
+
+ opened = false;
 
   logs = [
     {

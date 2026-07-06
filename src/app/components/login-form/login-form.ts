@@ -28,7 +28,7 @@ export class LoginForm {
 
   onSubmit() {
     if (this.form.invalid) {
-      this.form.markAllAsDirty();
+      this.form.markAsPristine();
       this.hidden = true;
     }
 

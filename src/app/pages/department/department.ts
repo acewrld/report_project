@@ -1,91 +1,109 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, computed, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 import { MaterialModule } from '../../material/material-module';
-import { REPORTS, Report } from '../../api/reports'
 import { SearchBtn } from '../../components/search-btn/search-btn';
-// import { ReportTable } from '../../components/report-table/report-table';
-import { GlobalStateService } from '../../services/global-state';
+
+import { ReportInterface } from '../../interface/report';
+import { ReportService } from '../../services/reports';
 
 @Component({
   selector: 'app-department',
   standalone: true,
-  imports: [MaterialModule, FormsModule, CommonModule, RouterLink, SearchBtn],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterLink,
+    MaterialModule,
+    SearchBtn,
+  ],
   templateUrl: './department.html',
 })
-export class Department {
+export class Department implements OnInit {
+  g_user = '';
 
-  constructor( public globalState: GlobalStateService) {}
+  allReports = signal<ReportInterface[]>([]);
 
-  opened = false;
-  searchText = '';
-  selectedCategory = '';
-  selectedSort = '';
+  searchText = signal('');
+  selectedCategory = signal('All Categories');
+  selectedSort = signal('All');
 
-  reports: Report[] = REPORTS;
-  datasource = this.reports;
+  constructor(private reportService: ReportService) {}
 
-  statusClasses: Record<string, string> = {
-    success: 'text-green-600',
-    failed: 'text-red-600',
-    pending: 'text-yellow-600',
-  };
-
-  statusClass(status: string): string {
-    return this.statusClasses[status] || 'text-gray-600';
+  ngOnInit(): void {
+    this.g_user = this.reportService.globalState.user;
+    this.loadReports();
   }
 
-onSearch(value: string) {
-  this.searchText = value;
-  this.applyFilters();
-}
-
-  selectCategory(category: string) {
-    this.selectedCategory = category;
-    this.applyFilters();
+  loadReports(): void {
+    this.reportService.getReport().subscribe({
+      next: (data) => {
+        this.allReports.set(data);
+      },
+      error: (err) => {
+        console.error('Failed to load reports', err);
+      },
+    });
   }
 
-  selectSort(sort: string) {
-    this.selectedSort = sort;
-    this.applyFilters();
-  }
+  filteredReports = computed(() => {
+    let data = [...this.allReports()];
 
-  applyFilters() {
-  let data = [...this.reports];
+    const search = this.searchText().trim().toLowerCase();
 
-  if (this.searchText?.trim()) {
-    const search = this.searchText.toLowerCase();
-
-    data = data.filter(r =>
-      r.name.toLowerCase().includes(search) ||
-      r.category.toLowerCase().includes(search) ||
-      r.lastRun.toLowerCase().includes(search) ||
-      r.date.toLowerCase().includes(search)
-    );
-  }
-
-  if (this.selectedCategory && this.selectedCategory !== 'All Categories') {
-    data = data.filter(r => r.category === this.selectedCategory);
-  }
-
-  switch (this.selectedSort) {
-    case 'NameAsc':
-      data.sort((a, b) => a.name.localeCompare(b.name));
-      break;
-
-    case 'Recent':
-      data.sort(
-        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    if (search) {
+      data = data.filter(
+        (report) =>
+          report.name.toLowerCase().includes(search) ||
+          report.category.toLowerCase().includes(search) ||
+          report.user.toLowerCase().includes(search) ||
+          report.date.toLowerCase().includes(search)
       );
-      break;
+    }
 
-    case 'DateOldest':
-      data.sort(
-        (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    if (
+      this.selectedCategory() &&
+      this.selectedCategory() !== 'All Categories'
+    ) {
+      data = data.filter(
+        (report) => report.category === this.selectedCategory()
       );
-      break;
+    }
+
+    switch (this.selectedSort()) {
+      case 'NameAsc':
+        data.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+
+      case 'Recent':
+        data.sort(
+          (a, b) =>
+            new Date(b.date).getTime() - new Date(a.date).getTime()
+        );
+        break;
+
+      case 'DateOldest':
+        data.sort(
+          (a, b) =>
+            new Date(a.date).getTime() - new Date(b.date).getTime()
+        );
+        break;
+    }
+
+    return data;
+  });
+
+  onSearch(value: string): void {
+    this.searchText.set(value);
   }
-  this.datasource = data;
-}
+
+  selectCategory(category: string): void {
+    this.selectedCategory.set(category);
+  }
+
+  selectSort(sort: string): void {
+    this.selectedSort.set(sort);
+  }
 }

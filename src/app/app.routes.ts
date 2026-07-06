@@ -16,7 +16,7 @@ export const routes: Routes = [
     children: [
       {
         path: 'dashboard', pathMatch: 'full', loadComponent: () => import('./pages/dashboard/dashboard').then(m => m.Dashboard) },
-      { path: 'report', pathMatch: 'full', loadComponent: () => import('./pages/report-page/report-page').then(m => m.ReportPage) },
+      { path: 'report/:name', pathMatch: 'full', loadComponent: () => import('./pages/report-page/report-page').then(m => m.ReportPage) },
       { path: 'audit', pathMatch: 'full', loadComponent: () => import('./pages/logs/logs').then(m => m.Logs) },
       { path: 'department', pathMatch: 'full', loadComponent: () => import('./pages/department/department').then(m => m.Department) }
     ],

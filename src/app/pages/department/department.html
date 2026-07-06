@@ -6,28 +6,22 @@
       <p class="text-gray-500 mt-1 text-sm">Browse, organize and run all reports from one place</p>
     </div>
 
-    <button
-      [matMenuTriggerFor]="user"
-      class="flex items-center gap-3 px-4 py-2 rounded-2xl bg-white border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-300"
-    >
+    <button [matMenuTriggerFor]="user"
+      class="flex items-center gap-3 px-4 py-2 rounded-2xl bg-white border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-300">
       <div
-        class="w-10 h-10 rounded-full bg-linear-to-r from-amber-400 to-orange-400 flex items-center justify-center text-white shadow-md"
-      >
+        class="w-10 h-10 rounded-full bg-linear-to-r from-amber-400 to-orange-400 flex items-center justify-center text-white shadow-md">
         <mat-icon>account_circle</mat-icon>
       </div>
 
       <div class="text-left">
-        <p class="text-sm font-semibold text-slate-700">{{ globalState.user }}</p>
+        <p class="text-sm font-semibold text-slate-700">{{ g_user }}</p>
       </div>
       <mat-icon class="text-gray-400 text-sm">expand_more</mat-icon>
     </button>
 
     <mat-menu #user="matMenu" class="rounded-2xl overflow-hidden">
       <div class="py-1 min-w-45">
-        <a
-          routerLink="/logout"
-          class="flex items-center gap-3 px-4 py-3 text-red-500 hover:bg-red-50 transition"
-        >
+        <a routerLink="/logout" class="flex items-center gap-3 px-4 py-3 text-red-500 hover:bg-red-50 transition">
           <mat-icon>logout</mat-icon>
           Logout
         </a>
@@ -40,15 +34,13 @@
 
       <app-search-btn (searchChange)="onSearch($event)"></app-search-btn>
 
-      <button
-        [matMenuTriggerFor]="categorymenu"
-        class="h-12 rounded-2xl border border-gray-200 bg-gray-50 px-4 flex items-center justify-between hover:bg-white hover:shadow-sm transition"
-      >
+      <button [matMenuTriggerFor]="categorymenu"
+        class="h-12 rounded-2xl border border-gray-200 bg-gray-50 px-4 flex items-center justify-between hover:bg-white hover:shadow-sm transition">
         <div class="flex items-center gap-2">
           <mat-icon class="text-amber-500 text-[20px]"> category </mat-icon>
 
           <span class="text-gray-700 text-sm font-medium">
-            {{ selectedCategory || 'All Categories' }}
+            {{ selectedCategory() }}
           </span>
         </div>
         <mat-icon class="text-gray-400">expand_more</mat-icon>
@@ -56,38 +48,53 @@
 
       <mat-menu #categorymenu="matMenu" class="rounded-2xl overflow-hidden">
         <div class="py-2 min-w-60">
-          <button
-            (click)="selectCategory('All Categories')"
-            class="w-full text-left px-4 py-3 hover:bg-amber-50 hover:text-amber-600 transition"
-          >
+          <button (click)="selectCategory('All Categories')"
+            class="w-full text-left px-4 py-3 hover:bg-amber-50 hover:text-amber-600 transition">
             All Categories
           </button>
 
-          <button
-            class="w-full text-left px-4 py-3 hover:bg-amber-50 hover:text-amber-600 transition"
-            (click)="selectCategory('Loan')"
-          >
+          <button class="w-full text-left px-4 py-3 hover:bg-amber-50 hover:text-amber-600 transition"
+            (click)="selectCategory('Loan')">
             Loan
           </button>
 
-          <button
-            class="w-full text-left px-4 py-3 hover:bg-amber-50 hover:text-amber-600 transition"
-            (click)="selectCategory('Finance')"
-          >
+          <button class="w-full text-left px-4 py-3 hover:bg-amber-50 hover:text-amber-600 transition"
+            (click)="selectCategory('Finance')">
             Finance
+          </button>
+
+          <button class="w-full text-left px-4 py-3 hover:bg-amber-50 hover:text-amber-600 transition"
+            (click)="selectCategory('Members')">
+            Member
+          </button>
+
+          <button class="w-full text-left px-4 py-3 hover:bg-amber-50 hover:text-amber-600 transition"
+            (click)="selectCategory('Users')">
+            Users
+          </button>
+
+          <button class="w-full text-left px-4 py-3 hover:bg-amber-50 hover:text-amber-600 transition"
+            (click)="selectCategory('Savings')">
+            Savings
           </button>
         </div>
       </mat-menu>
 
-      <button
-        [matMenuTriggerFor]="sortmenu"
-        class="h-12 rounded-2xl border border-gray-200 bg-gray-50 px-4 flex items-center justify-between hover:bg-white hover:shadow-sm transition"
-      >
+      <button [matMenuTriggerFor]="sortmenu"
+        class="h-12 rounded-2xl border border-gray-200 bg-gray-50 px-4 flex items-center justify-between hover:bg-white hover:shadow-sm transition">
         <div class="flex items-center gap-2">
           <mat-icon class="text-amber-500 text-[20px]"> sort </mat-icon>
 
           <span class="text-gray-700 text-sm font-medium">
-            {{ selectedSort || 'Sort by: Name (A - Z)' }}
+            {{
+            selectedSort() === 'All'
+            ? 'Sort by'
+            : selectedSort() === 'NameAsc'
+            ? 'Name (A - Z)'
+            : selectedSort() === 'Recent'
+            ? 'Recent'
+            : 'Oldest'
+            }}
           </span>
         </div>
 
@@ -96,25 +103,19 @@
 
       <mat-menu #sortmenu="matMenu" class="rounded-2xl overflow-hidden">
         <div class="py-2 min-w-60">
-          <button
-            (click)="selectSort('All')"
-            class="w-full text-left px-4 py-3 hover:bg-amber-50 hover:text-amber-600 transition"
-          >
+          <button (click)="selectSort('All')"
+            class="w-full text-left px-4 py-3 hover:bg-amber-50 hover:text-amber-600 transition">
             All
           </button>
 
-          <button
-            (click)="selectSort('NameAsc')"
-            class="w-full text-left px-4 py-3 hover:bg-amber-50 hover:text-amber-600 transition"
-          >
+          <button (click)="selectSort('NameAsc')"
+            class="w-full text-left px-4 py-3 hover:bg-amber-50 hover:text-amber-600 transition">
             Name (A - Z)
           </button>
 
-          <button
-            (click)="selectSort('Recent')"
-            class="w-full text-left px-4 py-3 hover:bg-amber-50 hover:text-amber-600 transition"
-          >
-            Recents
+          <button (click)="selectSort('Recent')"
+            class="w-full text-left px-4 py-3 hover:bg-amber-50 hover:text-amber-600 transition">
+            Recent
           </button>
         </div>
       </mat-menu>
@@ -131,89 +132,77 @@
     </div>
     <div class="p-6">
 
-      
+
       <div class="overflow-x-auto">
-      <table class="w-full border-collapse">
-        <thead class="bg-white">
-          <tr class="border-b border-gray-200">
-            <th
-              class="text-left px-6 py-4 text-xs font-semibold uppercase tracking-wider text-gray-500"
-            >
-              Report Name
-            </th>
+        <table class="w-full border-collapse">
+          <thead class="bg-white">
+            <tr class="border-b border-gray-200">
+              <th class="text-left px-6 py-4 text-xs font-semibold uppercase tracking-wider text-gray-500">
+                Report Name
+              </th>
 
-            <th
-              class="text-left px-6 py-4 text-xs font-semibold uppercase tracking-wider text-gray-500"
-            >
-              Category
-            </th>
+              <th class="text-left px-6 py-4 text-xs font-semibold uppercase tracking-wider text-gray-500">
+                Category
+              </th>
 
-            <th
-              class="text-left px-6 py-4 text-xs font-semibold uppercase tracking-wider text-gray-500"
-            >
-              Last Run
-            </th>
+              <th class="text-left px-6 py-4 text-xs font-semibold uppercase tracking-wider text-gray-500">
+                Last Run
+              </th>
 
-            <th
-              class="text-left px-6 py-4 text-xs font-semibold uppercase tracking-wider text-gray-500"
-            >
-              Date
-            </th>
+              <th class="text-left px-6 py-4 text-xs font-semibold uppercase tracking-wider text-gray-500">
+                Date
+              </th>
 
-            <th
-              class="text-left pr-6 py-4 text-xs font-semibold uppercase tracking-wider text-gray-500"
-            >
-              Action
-            </th>
-          </tr>
-        </thead>
+              <th class="text-left pr-6 py-4 text-xs font-semibold uppercase tracking-wider text-gray-500">
+                Action
+              </th>
+            </tr>
+          </thead>
 
-        <tbody>
-          <tr
-            *ngFor="let element of datasource"
-            class="border-b border-gray-100 hover:bg-amber-50/30 transition duration-200"
-          >
-            <td class="px-6 py-5">
-              <div class="flex items-center gap-3">
-                <div class="w-11 h-11 rounded-xl bg-amber-100 flex items-center justify-center">
-                  <mat-icon class="text-amber-500"> description </mat-icon>
+          <tbody>
+            <tr *ngFor="let element of filteredReports()"
+              class="border-b border-gray-100 hover:bg-amber-50/30 transition duration-200">
+              <td class="px-6 py-5">
+                <div class="flex items-center gap-3">
+                  <div class="w-11 h-11 rounded-xl bg-amber-100 flex items-center justify-center">
+                    <mat-icon class="text-amber-500"> description </mat-icon>
+                  </div>
+
+                  <div>
+                    <p class="font-semibold text-slate-700">
+                      {{ element.name}}
+                    </p>
+
+                    <p class="text-xs text-gray-400">Generated Report</p>
+                  </div>
                 </div>
+              </td>
 
-                <div>
-                  <p class="font-semibold text-slate-700">
-                    {{ element.name }}
-                  </p>
+              <td class="px-6 py-5">
+                <span
+                  class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">
+                  {{ element.category }}
+                </span>
+              </td>
 
-                  <p class="text-xs text-gray-400">Generated Report</p>
-                </div>
-              </div>
-            </td>
+              <td class="px-6 py-5 text-sm text-gray-600">
+                <b>{{ element.user }}</b>
+              </td>
 
-            <td class="px-6 py-5">
-              <span
-                class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700"
-              >
-                {{ element.category }}
-              </span>
-            </td>
+              <td class="px-6 py-5 text-sm text-gray-600">
+                {{ element.date }}
+              </td>
 
-            <td class="px-6 py-5 text-sm text-gray-600">
-              {{ element.lastRun }}
-            </td>
-
-            <td class="px-6 py-5 text-sm text-gray-600">
-              {{ element.date }}
-            </td>
-
-            <td class="py-4 text-center flex gap-1">
-              <button [routerLink]="['/report']"  class="p-3 rounded-xl bg-slate-100 hover:bg-slate-200 transition">
-                <mat-icon class="text-gray-600"> play_arrow </mat-icon>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+              <td class="py-4 text-center flex gap-1">
+                <button [routerLink]="['/report', element.slug]"
+                  class="p-3 rounded-xl bg-slate-100 hover:bg-slate-200 transition">
+                  <mat-icon class="text-gray-600"> play_arrow </mat-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

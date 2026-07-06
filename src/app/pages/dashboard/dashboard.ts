@@ -1,20 +1,23 @@
-import { Component } from '@angular/core';
-import { MaterialModule } from '../../material/material-module';
 import { CommonModule } from '@angular/common';
-import { DASHBOARDLIST, DashboardList } from '../../api/dashboard';
+import { Component, OnInit } from '@angular/core';
+import { MaterialModule } from '../../material/material-module';
 import { BarChart } from '../../components/bar-chart/bar-chart';
-import { GlobalStateService } from '../../services/global-state';
+import { DashboardInterface } from '../../interface/dashboard-interface';
+import { ReportService } from '../../services/reports';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [MaterialModule, CommonModule, BarChart],
+  standalone: true,
+  imports: [CommonModule, MaterialModule, BarChart],
   templateUrl: './dashboard.html',
 })
-export class Dashboard {
-  constructor( public globalState: GlobalStateService) {}
-
+export class Dashboard implements OnInit {
+  dashboardData: DashboardInterface[] = [];
+  g_user = '';
   searchText = '';
   activeTab = '6m';
+  loading = true;
 
   chartTabs = [
     { label: '6 months', value: '6m' },
@@ -22,13 +25,30 @@ export class Dashboard {
     { label: 'All time', value: 'all' },
   ];
 
-  
+  constructor(
+    private reportService: ReportService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
-  reports: DashboardList[] = DASHBOARDLIST;
-  
-  datasource = this.reports;
+  ngOnInit(): void {
+    this.loadDashboardData();
+    this.g_user = this.reportService.globalState.user;
+  }
 
-  onSearch(value: string) {
+  loadDashboardData(): void {
+    this.reportService.getApi().subscribe({
+      next: (data: DashboardInterface[]) => {
+        this.dashboardData = data;
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        this.cdr.detectChanges();
+      },
+    });
+  }
+
+
+  onSearch(value: string): void {
     this.searchText = value;
   }
 }
