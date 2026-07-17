@@ -1,70 +1,86 @@
-import { Component } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule, NgClass } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule,Validators,} from '@angular/forms';
+import { ActivatedRoute, Route } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { EmailReport } from '../../components/email-report/email-report';
 import { MaterialModule } from '../../material/material-module';
-import { NgClass } from '@angular/common';
-import { FormGroup, FormControl } from '@angular/forms';
-import { Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-report-page',
-  imports: [MaterialModule, FormsModule, NgClass, ReactiveFormsModule, CommonModule],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgClass,
+    MaterialModule,
+  ],
   templateUrl: './report-page.html',
 })
-
 export class ReportPage implements OnInit {
-    opened = true;
+  opened = true;
+  hideModal = true;
+
+  name = '';
+  reportDate = '';
+
   selectedCategory = '';
   selectedMemberNumber = '';
   selectedAccountNumber = '';
   selectedDate = '';
-selectedStatus = '';
-  hideModal = true;
-  reportDate = '';
-name = ''
-  form!: FormGroup;
+  selectedStatus = '';
 
-  constructor(private route: ActivatedRoute) {
-    this.form = new FormGroup({
-      memberNumber: new FormControl('', Validators.required),
-      accountNumber: new FormControl('', Validators.required),
-      reportDate: new FormControl('', Validators.required)
+  form = new FormGroup({
+    memberNumber: new FormControl('', Validators.required),
+    accountNumber: new FormControl('', Validators.required),
+    reportDate: new FormControl('', Validators.required),
+  });
+
+  constructor(
+    private route: ActivatedRoute,
+    private dialog: MatDialog
+  ) {}
+
+  ngOnInit(): void {
+    this.route.params.subscribe(({ name }) => {
+      this.name = name;
+      console.log('Report Name:', this.name);
     });
   }
 
-  ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.name = params['name'];
-      console.log('Report name from routesssyyy:', this.name);
-    });
-  }
+  runReport(): void {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      this.opened = false;
+      return;
+    }
 
-  runReport() {
- if (this.form.invalid) {
-    this.form.markAllAsTouched();
+    this.reportDate = this.form.value.reportDate ?? '';
+    this.selectedMemberNumber = this.form.value.memberNumber ?? '';
+    this.selectedAccountNumber = this.form.value.accountNumber ?? '';
+    this.selectedStatus = 'Report Generated';
+
     this.opened = false;
-    return;
-  }
-else {
-  this.reportDate = this.form.value.reportDate;
-  this.selectedMemberNumber = this.form.value.memberNumber;
-  this.selectedAccountNumber = this.form.value.accountNumber;
-  this.selectedStatus = 'Report Generated';
-  this.opened = false;
-  this.hideModal = false;
-}
+    this.hideModal = false;
   }
 
-resetForm() {
-  this.form.reset();
-  this.selectedCategory = '';
-  this.selectedMemberNumber = '';
-  this.selectedAccountNumber = '';
-  this.reportDate = '';
-  this.selectedStatus = '';
-  this.opened = true;
-  this.hideModal = true
-}
+  resetForm(): void {
+    this.form.reset();
+
+    this.reportDate = '';
+    this.selectedCategory = '';
+    this.selectedMemberNumber = '';
+    this.selectedAccountNumber = '';
+    this.selectedDate = '';
+    this.selectedStatus = '';
+
+    this.opened = true;
+    this.hideModal = true;
+  }
+
+
+  openEmailDialog(): void {
+    this.dialog.open(EmailReport)
+  }
 }

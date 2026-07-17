@@ -14,7 +14,6 @@ export class Logs {
   g_users = '';
   constructor( public reportService: ReportService) {
     this.g_users = this.reportService.globalState.user;
-    
   }
 
  opened = false;

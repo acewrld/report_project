@@ -1,0 +1,44 @@
+<div class="w-full max-w-md mx-auto bg-white rounded-2xl p-8 shadow-xl">
+
+  <div class="flex justify-center">
+    <div class="flex h-20 w-20 items-center justify-center rounded-full bg-amber-400 shadow-md">
+      <mat-icon class="w-10! h-10! text-[40px]! text-white"> cloud_upload </mat-icon>
+    </div>
+  </div>
+
+  <div class="mt-6 text-center">
+    <h2 class="text-2xl font-bold text-gray-900">
+      Send Report
+    </h2>
+
+    <p class="mt-2 text-sm text-gray-500 leading-6">
+      Enter the email address where you would like the report to be delivered.
+    </p>
+  </div>
+
+  <div class="mt-8">
+    <label class="mb-2 block text-sm font-medium text-gray-700">
+      Email Address
+    </label>
+    
+    <input
+      type="email"
+      placeholder="example@email.com"
+      [formControl]="email"
+      class="w-full rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 text-gray-700 transition-all duration-200 placeholder:text-gray-400 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-blue-100"
+    />
+
+    <p *ngIf="email.invalid && email.touched" class="mt-2 text-sm text-red-500">
+      Please enter a valid email address.
+    </p>
+  </div>
+
+  <button
+    (click)="sendReport()" [disabled]="email.invalid"
+    class="mt-8 flex w-full items-center justify-center rounded-xl bg-amber-500 py-3 text-sm  text-white shadow-lg transition-all duration-200 hover:bg-amber-400 hover:shadow-xl disabled:cursor-not-allowed disabled:bg-gray-300 disabled:shadow-none"
+  >
+    <mat-icon class="mr-2 w-5! h-5! text-[20px]!"> send </mat-icon>
+    Send Report
+  </button>
+
+</div>
